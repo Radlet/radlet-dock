@@ -1,5 +1,0 @@
-# set project name
-project(Lattice Hub)
-
-#  create executable
-add_executable(server ./main.cpp)
