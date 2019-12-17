@@ -10,8 +10,8 @@ RUN apt install -qy libboost-all-dev
 COPY . /usr/src/app
 
 # compile source
-RUN mkdir /usr/src/app/bin
-WORKDIR /usr/src/app/bin
+RUN mkdir /usr/src/app/build
+WORKDIR /usr/src/app/build
 RUN cmake ..
 RUN make
 
@@ -19,4 +19,4 @@ RUN make
 EXPOSE 8080
 
 # execute binary
-CMD ./server
+CMD ./bin/server
