@@ -1,6 +1,2 @@
-# cmake
-CMakeFiles
-CMakeCache.txt
-
-# build
-build
+# binary
+bin
