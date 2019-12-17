@@ -7,10 +7,12 @@ project(lattice_hub)
 # set compiler c++ standard
 set(CMAKE_CXX_STANDARD 11)
 
-# header file locations
+# library header file locations
 include_directories(
 	libs/crow/inc
 )
+
+# internal module header file locations
 
 # adding libraries
 # BOOST components
