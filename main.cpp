@@ -5,8 +5,8 @@ int main()
     crow::SimpleApp app;
 
     CROW_ROUTE(app, "/")([](){
-        return "Hello world";
+        return "Lattice deployed";
     });
 
-    app.port(18080).multithreaded().run();
+    app.port(8080).multithreaded().run();
 }
