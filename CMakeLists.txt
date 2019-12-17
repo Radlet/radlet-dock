@@ -5,7 +5,7 @@ cmake_minimum_required(VERSION 3.10)
 project(lattice_hub)
 
 # set compiler c++ standard
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 # set binary output directory
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
@@ -25,6 +25,8 @@ include_directories(
 	libs/crow/inc
 )
 
+add_subdirectory( ${PROJECT_SOURCE_DIR}/device )
+
 # internal module header file locations
 include_directories(
 	io/adaptor/http/inc
@@ -40,4 +42,8 @@ INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
 add_executable(server ./main.cpp)
 
 # linking executable with libraries
-TARGET_LINK_LIBRARIES( server LINK_PUBLIC ${Boost_LIBRARIES} )
+TARGET_LINK_LIBRARIES( server LINK_PUBLIC ${Boost_LIBRARIES} 
+                                          device )
+
+# Include directories.
+target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/device )
