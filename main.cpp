@@ -1,9 +1,13 @@
+// std lib
 #include <string>
 #include <memory>
 
+// lib
 #include "crow_all.h"
-#include "device/device_manager.h"
+#include "sqlite3pp.h"
 
+// modules
+#include "device/device_manager.h"
 
 int main()
 {
