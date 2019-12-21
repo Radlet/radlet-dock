@@ -19,4 +19,4 @@ RUN make
 EXPOSE 8080
 
 # execute binary
-CMD ./bin/server
+CMD ./bin/lattice_hub

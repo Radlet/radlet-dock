@@ -18,32 +18,32 @@ FATAL: In-source builds are not allowed.
 ")
 endif()
 
-
+# find libraries
+# BOOST components
+find_package( Boost 1.52 COMPONENTS system thread regex REQUIRED )
 
 # library header file locations
 include_directories(
-	libs/crow/inc
+  libs/crow/inc
+  libs/sqlite3pp/inc
+  ${Boost_INCLUDE_DIR}
 )
-
-add_subdirectory( ${PROJECT_SOURCE_DIR}/device )
 
 # internal module header file locations
 include_directories(
-	io/adaptor/http/inc
+  io/adaptor/http/inc
+  device
 )
 
-# adding libraries
-# BOOST components
-FIND_PACKAGE( Boost 1.52 COMPONENTS system thread regex REQUIRED )
-INCLUDE_DIRECTORIES( ${Boost_INCLUDE_DIR} )
-
+# DEVICE module
+add_subdirectory( ${PROJECT_SOURCE_DIR}/device )
 
 # create executable
-add_executable(server ./main.cpp)
+add_executable(lattice_hub ./main.cpp)
 
 # linking executable with libraries
-TARGET_LINK_LIBRARIES( server LINK_PUBLIC ${Boost_LIBRARIES} 
-                                          device )
-
-# Include directories.
-target_include_directories(server PUBLIC ${PROJECT_SOURCE_DIR}/device )
+target_link_libraries(
+  lattice_hub 
+  LINK_PUBLIC ${Boost_LIBRARIES} 
+  device 
+)

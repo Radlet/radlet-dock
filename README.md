@@ -83,7 +83,15 @@ The latest successful build of the app is available at Docker Hub
 
 ## 🔧 Running the tests <a name = "tests"></a>
 
-Yet to finalize
+### Build test
+The dev environment for the app is available at Docker Hub  
+[![Docker](https://img.shields.io/docker/pulls/humbled/lattice_hub.dev)](https://hub.docker.com/repository/docker/humbled/lattice_hub.dev)
+
+This image can be used for build test using the following command:
+```
+docker build -t lattice_hub.test -f ./Docker/dev.Dockerfile .
+```
+If the build is successful the image will be created successfully which can then be run for runtime tests. 
 
 ### Break down into end to end tests
 
