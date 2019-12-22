@@ -1,6 +1,7 @@
 #include "discovery.h"
 #include "../event_handler/event_handler.h"
 
+#include <fstream>
 #include <functional>
 
 using namespace event;
@@ -12,52 +13,51 @@ void Device::AddTask(const string &operation_type, const string &arg) {
   // Executing from main thread to be consumed for discovery service.
 
   if (operation_type == "Add") {
-    PushEvent(new Event(bind(&Device::Add, this, arg)));
+    BaseEvent *B = new Event(bind(&Device::Add, this, arg));
+    PushEvent(B);
     return;
   }
-/*
+
   if (operation_type == "Search") {
-    PushEvent(bind(&Device::SearchDevices, this, arg));
+    BaseEvent *B = new Event(bind(&Device::SearchDevices, this, arg));
+    PushEvent(B);
     return;
   }
 
   if (operation_type == "Remove") {
-    PushEvent(bind(&Device::RemoveDevice, this, arg));
+    BaseEvent *B = new Event(bind(&Device::RemoveDevice, this, arg));
+    PushEvent(B);
     return;
   }
 
   if (operation_type == "List") {
-    PushEvent(bind(&Device::ListDevices, this, arg));
+    BaseEvent *B = new Event(bind(&Device::ListDevices, this, arg));
+    PushEvent(B);
     return;
   }
 
   if (operation_type == "Get") {
-    PushEvent(bind(&Device::GetDevice, this, arg));
+    BaseEvent *B = new Event(bind(&Device::GetDevice, this, arg));
+    PushEvent(B);
     return;
   }
-*/
 }
 
 // #TODO: Implement Logic
 void Device::Add(const string &arg) {
   // Perform addition operation.
   Notify("Addition Started");
-  cout << "Test add.";
-
+  fstream fs("filex.txt", ios::out);
+  fs << "done";
+  fs.close();
 }
 
-void Device::SearchDevices(const string &arg) {
-}
+void Device::SearchDevices(const string &arg) {}
 
-void Device::RemoveDevice(const string &arg) {
-}
+void Device::RemoveDevice(const string &arg) {}
 
-void Device::ListDevices(const string &arg) {
-}
+void Device::ListDevices(const string &arg) {}
 
-void Device::GetDevice(const string &arg) {
-}
+void Device::GetDevice(const string &arg) {}
 
-void Device::Notify(const string &arg) {
-  cout << arg <<"\n";
-}
+void Device::Notify(const string &arg) { cout << arg << "\n"; }

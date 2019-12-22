@@ -3,6 +3,8 @@
 
 #include <deque>
 #include <mutex>
+#include <thread>
+#include <vector>
 
 #include "boost/bind.hpp"
 #include "boost/fiber/condition_variable.hpp"
@@ -10,77 +12,55 @@
 
 #include "consts.h"
 
+using namespace std;
 namespace event {
-  class BaseEvent;
-  class EventHandler;
-  template<typename T>
-  class Event;
-}
+class BaseEvent;
+class EventHandler;
+template <typename T> class Event;
+} // namespace event
+
 class event::BaseEvent {
-  public:
-
-  // To be overloaded by derived class.
-  virtual void execute() {}
-};
-template<typename Call>
-class event::Event: public event::BaseEvent {
-  Call method_;
 public:
-  Event(const Call &method):method_(method) {    
-  }
+  // To be overloaded by derived class.
+  virtual void execute() { std::cout << "wrong" << std::endl; }
+};
 
-  void execute() {
-    method_();
-  }
+template <typename Call> class event::Event : public event::BaseEvent {
+  Call method_;
+
+public:
+  Event(const Call &method) : method_(method) {}
+
+  void execute() { method_(); }
 };
 
 class event::EventHandler {
+  std::vector<std::thread *> threads_;
   int running_thread_count_;
+  bool service_up_;
   int allowed_thread_count_;
   boost::mutex generic_lock_;
   boost::mutex lock_for_tasks_[PRIORITY_COUNT];
-  std::deque<const BaseEvent*> tasks_[PRIORITY_COUNT];
+  std::deque<BaseEvent *> tasks_[PRIORITY_COUNT];
 
 public:
-  EventHandler(const int &thread_count=1): allowed_thread_count_(thread_count) {}
+  EventHandler(const int &thread_count = 1)
+      : allowed_thread_count_(thread_count), service_up_(1),
+        running_thread_count_(0) {}
   virtual void AddTask();
 
-  void PushEvent(const BaseEvent*, const int &priority=PRIORITY_LOW);
+  void PushEvent(BaseEvent *, const int &priority = PRIORITY_LOW);
 
-  void Trigger() {
-    if (running_thread_count_ < allowed_thread_count_) {
-     {
-      std::unique_lock<boost::mutex> lock(generic_lock_);
-      ++running_thread_count_;
-     }
-      new boost::thread(boost::bind(&event::EventHandler::Run, this));
-    }
-  }
+  void Trigger();
 
-  void Run() {
+  void Run();
 
-    while (true) {
-      for (int priority = PRIORITY_HIGH;
-             priority >= PRIORITY_LOW; priority--) {
+  void ThreadEnded();
 
-        std::unique_lock<boost::mutex> lock(lock_for_tasks_[priority]);
-        if(tasks_[priority].empty())
-          continue;
-  
-        auto task = *(tasks_[priority].front());
-        tasks_[priority].pop_front();
-        lock.unlock();
-        task.execute();
-        break;
-      }
-    }
-
-    ThreadEnded();
-  }
-
-  void ThreadEnded() {
-    std::unique_lock<boost::mutex> lock(generic_lock_);
-    --running_thread_count_;
+  ~EventHandler() {
+    service_up_ = false;
+    for (auto &thread_obj : threads_)
+      thread_obj->join();
   }
 };
 
