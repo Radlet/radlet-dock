@@ -32,11 +32,14 @@ include_directories(
 # internal module header file locations
 include_directories(
   io/adaptor/http/inc
-  device
 )
 
-# DEVICE module
-add_subdirectory( ${PROJECT_SOURCE_DIR}/device )
+add_library(core
+  core/event_handler/event_handler.cpp
+  core/discovery/discovery.cpp
+)
+
+
 
 # create executable
 add_executable(lattice_hub ./main.cpp)
@@ -44,6 +47,6 @@ add_executable(lattice_hub ./main.cpp)
 # linking executable with libraries
 target_link_libraries(
   lattice_hub 
-  LINK_PUBLIC ${Boost_LIBRARIES} 
-  device 
+  LINK_PUBLIC ${Boost_LIBRARIES}
+  LINK_PUBLIC core
 )

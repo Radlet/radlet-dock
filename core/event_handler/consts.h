@@ -1,0 +1,9 @@
+#ifndef PRIORITIES
+#define PRIORITIES
+
+#define PRIORITY_COUNT 3
+#define PRIORITY_LOW 0
+#define PRIORITY_MEDIUM 1
+#define PRIORITY_HIGH 2
+
+#endif
