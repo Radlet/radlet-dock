@@ -10,8 +10,9 @@ RUN apt install -qy libboost-all-dev
 COPY . /usr/src/app
 
 # compile source
-RUN mkdir /usr/src/app/build
+RUN mkdir -p /usr/src/app/build
 WORKDIR /usr/src/app/build
+RUN rm -rf * 
 RUN cmake ..
 RUN make
 
