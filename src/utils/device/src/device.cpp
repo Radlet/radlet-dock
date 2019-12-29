@@ -1,0 +1,1 @@
+// Device class implementation
