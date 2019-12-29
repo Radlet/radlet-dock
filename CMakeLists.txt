@@ -23,30 +23,20 @@ endif()
 find_package( Boost 1.52 COMPONENTS system thread regex REQUIRED )
 
 # library header file locations
-include_directories(
-  libs/crow/inc
-  libs/sqlite3pp/inc
+set(
+  LIBRARY_INCLUDE_PATHS
+  ${CMAKE_SOURCE_DIR}/libs/crow/inc
+  ${CMAKE_SOURCE_DIR}/libs/sqlite3pp/inc
   ${Boost_INCLUDE_DIR}
 )
 
-# internal module header file locations
-include_directories(
-  io/adaptor/http/inc
+# library link paths
+set(
+  LIBRARY_LINK_PATHS
+  LINK_PUBLIC ${Boost_LIBRARIES} 
 )
 
-add_library(core
-  core/event_handler/event_handler.cpp
-  core/discovery/discovery.cpp
-)
-
-
-
-# create executable
-add_executable(lattice_hub ./main.cpp)
-
-# linking executable with libraries
-target_link_libraries(
-  lattice_hub 
-  LINK_PUBLIC ${Boost_LIBRARIES}
-  LINK_PUBLIC core
+# sub_directories
+add_subdirectory(
+  ${CMAKE_SOURCE_DIR}/src
 )
