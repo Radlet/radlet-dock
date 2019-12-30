@@ -21,22 +21,20 @@ endif()
 # find libraries
 # BOOST components
 find_package( Boost 1.52 COMPONENTS system thread regex REQUIRED )
+find_package( Protobuf REQUIRED )
 
-# library header file locations
-set(
-  LIBRARY_INCLUDE_PATHS
+# include 3rd party header files
+include_directories(
   ${CMAKE_SOURCE_DIR}/libs/crow/inc
   ${CMAKE_SOURCE_DIR}/libs/sqlite3pp/inc
   ${Boost_INCLUDE_DIR}
-)
-
-# library link paths
-set(
-  LIBRARY_LINK_PATHS
-  LINK_PUBLIC ${Boost_LIBRARIES} 
+  ${Protobuf_INCLUDE_DIRS}
 )
 
 # sub_directories
+add_subdirectory(
+  ${CMAKE_SOURCE_DIR}/protos
+)
 add_subdirectory(
   ${CMAKE_SOURCE_DIR}/src
 )

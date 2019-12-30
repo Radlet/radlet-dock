@@ -1,19 +1,19 @@
-#ifndef LATTICE_HUB_CORE_UTILS_DEVICE_H
-#define LATTICE_HUB_CORE_UTILS_DEVICE_H
+#ifndef LATTICE_HUB_CORE_UTILS_THING_H
+#define LATTICE_HUB_CORE_UTILS_THING_H
 
 #include <boost/property_tree/ptree.hpp>
 
 #include <string>
 
-namespace device {
-class Device;
+namespace thing {
+class Thing;
 }
 
-class device::Device {
+class thing::Thing {
   boost::property_tree::ptree pt;
 
 public:
-  Device();
+  Thing();
   // id
   // title
   // description
