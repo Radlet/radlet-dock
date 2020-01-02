@@ -28,8 +28,10 @@ endforeach(DIR)
 # library header file locations
 include_directories(
 	${SRC_INCLUDE_PATHS}
+    ${CMAKE_CURRENT_BINARY_DIR}/../protos
 )
 
+message(WARNING ${CMAKE_CURRENT_BINARY_DIR}/protos)
 # create executable
 add_executable(${PROJECT_NAME} ${SRC_PATHS} ./main.cpp)
 
