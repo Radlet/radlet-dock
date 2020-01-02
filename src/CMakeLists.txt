@@ -31,7 +31,6 @@ include_directories(
     ${CMAKE_CURRENT_BINARY_DIR}/../protos
 )
 
-message(WARNING ${CMAKE_CURRENT_BINARY_DIR}/protos)
 # create executable
 add_executable(${PROJECT_NAME} ${SRC_PATHS} ./main.cpp)
 
