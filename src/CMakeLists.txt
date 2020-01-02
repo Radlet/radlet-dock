@@ -5,7 +5,7 @@ set(
 	core/discovery
 	core/state
 	io/adaptor
-	utils/device
+	utils/thing
 )
 
 set(SRC_PATHS "")
@@ -27,15 +27,14 @@ endforeach(DIR)
 
 # library header file locations
 include_directories(
-	${LIBRARY_INCLUDE_PATHS}
 	${SRC_INCLUDE_PATHS}
 )
 
 # create executable
 add_executable(${PROJECT_NAME} ${SRC_PATHS} ./main.cpp)
 
-# linking executable with libraries
+# linking executable with required libraries
 target_link_libraries(
-  ${PROJECT_NAME} 
-  ${LIBRARY_LINK_PATHS}
+	${PROJECT_NAME} 
+  LINK_PUBLIC protos ${Boost_LIBRARIES}
 )

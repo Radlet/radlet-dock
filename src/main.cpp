@@ -5,6 +5,9 @@
 // lib
 #include "crow_all.h"
 
+// proto
+#include "thing_buffer.pb.h"
+
 // modules
 // #include "device/device_manager.h"
 
