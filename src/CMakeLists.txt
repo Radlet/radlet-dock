@@ -4,8 +4,10 @@ set(
 	core/db
 	core/discovery
 	core/state
-	io/adaptor
+	io/adaptor/tcp
+	io/adaptor/udp
 	utils/thing
+	utils/port_map
 )
 
 set(SRC_PATHS "")
@@ -20,7 +22,7 @@ foreach(DIR ${SOURCE_DIR})
 	)
 	# iterativly append src path variable
 	aux_source_directory(
-		{$DIR}/src
+		${DIR}/src
 		SRC_PATHS
 	)
 endforeach(DIR)
