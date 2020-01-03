@@ -14,8 +14,5 @@ RUN make
 # # expose port 
 EXPOSE 8080
 
-# # execute binary
-CMD ./bin/lattice_hub
-
 # If build fails, issue this command
 # docker rmi $(docker images -f “dangling=true” -q)

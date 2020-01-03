@@ -1,23 +1,19 @@
 # our base image
-FROM ubuntu
+FROM humbled/lattice_hub.dev
 
-# preparing basic dev environment
-RUN apt-get update
-RUN apt install -qy cmake
-RUN apt install -qy libboost-all-dev
-
-# copy files to container
+# # copy files to container
 COPY . /usr/src/app
 
-# compile source
+# # compile source
 RUN mkdir -p /usr/src/app/build
 WORKDIR /usr/src/app/build
-RUN rm -rf * 
+RUN rm -rf *
 RUN cmake ..
 RUN make
 
-# expose port 
+# # expose port 
 EXPOSE 8080
 
 # execute binary
 CMD ./bin/lattice_hub
+
