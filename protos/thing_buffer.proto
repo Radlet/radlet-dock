@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package thing_buffer;
+package lattic_hub.thing_buffer;
 
-message thing {
+message Thing {
   string id = 1;
   string title = 2;
   string description = 3;
