@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package lattice_hub.user;
+
+// This proto defines user registered via app.
+message User {
+  // This is the unique user id.
+  bytes id = 1;
+
+  // User's name.
+  string name = 2;
+
+  // Devices registered by user.
+  message RegisteredDevice {
+    // Id of device.
+    bytes device_id = 1;
+
+    // List of service event types.
+    enum Service {
+      notify_on_disconnect = 0;
+      notify_on_connect = 1;
+    }
+
+    // Services subscribed with this device.
+    // If i-th bit is set in service_bitmap this means user has subscribed for
+    // i-th Service from enum Service.
+    int32 service_bitmap = 2 ;
+  }
+
+  // Vector of devices registered by user.
+  repeated RegisteredDevice registered_devices = 3;
+
+  // Registered time of user.
+  int64 registered_time = 4;
+
+  // Registered duration of user.
+  int64 registered_duration_days = 5;
+}
