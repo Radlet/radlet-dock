@@ -5,23 +5,27 @@
 #include <string>
 
 // boost imports
+#include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
 
-// lib
-#include "crow_all.h"
-
 // proto
 #include "thing_buffer.pb.h"
 #include "user.pb.h"
+
+// internal module
+#include "http.h"
+#include "port_map.h"
+#include "udp_interface.h"
 
 using namespace std;
 using namespace boost::uuids;
 
 void demo_user() {
-  shared_ptr<lattice_hub::user::User> user1 = make_shared<lattice_hub::user::User>();
+  shared_ptr<lattice_hub::user::User> user1 =
+      make_shared<lattice_hub::user::User>();
   // Generate random boost uuid, convert it to string-16 bytes and store.
   user1->set_id(boost::lexical_cast<string>(random_generator()()).c_str());
   user1->set_name("Lattic_hub_dummy_user");
@@ -30,24 +34,18 @@ void demo_user() {
   cout << user1->DebugString() << endl;
 }
 
-int main()
-{
+int main() {
+  demo_user();
 
-    std::string api_output;    
-    crow::SimpleApp app;
+  // io::adaptor::Http http_listener;
+  // http_listener.listen();
 
-    CROW_ROUTE(app, "/")([](){
-        return "Lattice deployed";
-    });
-    demo_user();
-
-    CROW_ROUTE(app, "/add").methods("PUT"_method)([&](const crow::request &req){
-      return api_output.c_str();
-    });
-    CROW_ROUTE(app, "/devices").methods("GET"_method)([&](const crow::request &req){
-      return api_output.c_str();
-    });
-
-
-    app.port(8080).multithreaded().run();
+  try {
+    boost::asio::io_service io_service;
+    io::adaptor::udp_interface::UdpServer udpServer(io_service,
+                                                    PortMap::UDP_PORT);
+    io_service.run();
+  } catch (std::exception &e) {
+    std::cerr << e.what() << std::endl;
+  }
 }
