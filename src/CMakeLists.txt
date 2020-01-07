@@ -8,6 +8,7 @@ set(
 	io/adaptor/udp
 	utils/thing
 	utils/port_map
+	utils/ip_map
 )
 
 set(SRC_PATHS "")
