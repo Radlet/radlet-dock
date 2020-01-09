@@ -8,6 +8,7 @@
 #include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/thread/thread.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
@@ -36,12 +37,8 @@ void demo_user() {
   cout << user1->DebugString() << endl;
 }
 
-int main() {
-  demo_user();
-
-  // io::adaptor::Http http_listener;
-  // http_listener.listen();
-
+void StartUdpServer() {
+  cout << "Attempting to start Udp server\n";
   try {
     boost::shared_ptr<boost::asio::io_service> io_service(
         new boost::asio::io_service);
@@ -55,4 +52,20 @@ int main() {
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;
   }
+}
+
+void StartTcpServer() {
+  cout << "Attempting to start Tcp server\n";
+  io::adaptor::Http http_listener;
+  http_listener.listen();
+}
+
+int main() {
+  demo_user();
+  boost::thread_group worker_threads;
+  worker_threads.create_thread(StartUdpServer);
+  worker_threads.create_thread(StartTcpServer);
+  cout << "Servers started in separate threads\n";
+  worker_threads.join_all();
+  return 0;
 }
