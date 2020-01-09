@@ -5,7 +5,9 @@
 
 class PortMap{
 	public:
-	const static unsigned short UDP_PORT = 1300; 
+	static const unsigned short UDP_MULTICAST_PORT;
 };
+
+const unsigned short PortMap::UDP_MULTICAST_PORT = 30001;
 
 #endif

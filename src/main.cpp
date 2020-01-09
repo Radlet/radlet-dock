@@ -7,6 +7,7 @@
 // boost imports
 #include <boost/asio.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp>
 #include <boost/uuid/uuid_io.hpp>
@@ -17,6 +18,7 @@
 
 // internal module
 #include "http.h"
+#include "ip_map.h"
 #include "port_map.h"
 #include "udp_interface.h"
 
@@ -41,10 +43,15 @@ int main() {
   // http_listener.listen();
 
   try {
-    boost::asio::io_service io_service;
-    io::adaptor::udp_interface::UdpServer udpServer(io_service,
-                                                    PortMap::UDP_PORT);
-    io_service.run();
+    boost::shared_ptr<boost::asio::io_service> io_service(
+        new boost::asio::io_service);
+
+    // start udp receiver
+    io::adaptor::udp_interface::UdpReceiver udpReceiver(
+        io_service, PortMap::UDP_MULTICAST_PORT, IpMap::UDP_LISTENER,
+        IpMap::UDP_MULTICAST);
+
+    io_service->run();
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;
   }
