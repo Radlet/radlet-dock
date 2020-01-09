@@ -1,3 +1,14 @@
+/**
+ * @file udp_interface.cpp
+ * @author humble_d
+ * @brief 
+ * @version 0.1
+ * @date 2020-01-10
+ * 
+ * @copyright Copyright (c) 2020
+ * 
+ */
+
 // std lib
 #include <iostream>
 
@@ -22,8 +33,7 @@ io::adaptor::udp_interface::UdpReceiver::UdpReceiver(
   socket_.bind(listen_endpoint);
 
   // Join the multicast group.
-  socket_.set_option(boost::asio::ip::multicast::join_group(
-      address::from_string(multicast_ip)));
+  socket_.set_option(multicast::join_group(address::from_string(multicast_ip)));
 
   // start listening to messages
   start_receive();
