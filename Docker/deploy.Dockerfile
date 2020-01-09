@@ -13,6 +13,7 @@ RUN make
 
 # # expose port 
 EXPOSE 8080
+EXPOSE 30001/udp
 
 # execute binary
 CMD ./bin/lattice_hub

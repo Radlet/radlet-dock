@@ -13,6 +13,7 @@ RUN make
 
 # # expose port 
 EXPOSE 8080
+EXPOSE 30001/udp
 
 # If build fails, issue this command
 # docker rmi $(docker images -f “dangling=true” -q)
