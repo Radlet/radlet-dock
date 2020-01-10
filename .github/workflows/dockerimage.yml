@@ -10,4 +10,5 @@ jobs:
     runs-on: [ubuntu-18.04] 
     steps:
       - id: build_test_1
+        working-directory: ${{ github.workspace }}
         run: ./package.sh -b
