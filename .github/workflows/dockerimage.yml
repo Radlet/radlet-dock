@@ -10,8 +10,7 @@ jobs:
     runs-on: [ubuntu-18.04] 
     steps:
       - name: Checking src location
-        working-directory: ${{ github.workspace }}
-        run: ls -la
+        run: ls
       
       - name: Running build test script
         run: ./package.sh -b
