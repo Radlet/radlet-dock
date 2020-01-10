@@ -1,0 +1,13 @@
+name: Docker Image CI
+
+on:
+  pull_request:
+    branches: 
+    - master
+jobs:
+  build_test:
+    name: Running build test...
+    runs-on: [ubuntu-18.04] 
+    steps:
+      - id: build_test_1
+        run: ./package.sh -b
