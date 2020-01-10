@@ -3,18 +3,20 @@
 
 #include "sqlite3pp.h"
 
-namespace database {
+namespace core {
+namespace db {
 class DeviceDbInterface;
 class UserDbInterface;
-} // namespace database
+} // namespace db
+} // namespace core
 
-class database::DeviceDbInterface {
+class core::db::DeviceDbInterface {
   void addDevice();
   void updateDevice();
   void removeDevice();
 };
 
-class database::UserDbInterface {
+class core::db::UserDbInterface {
   void addUser();
   void updateUser();
   void removeUser();
