@@ -6,9 +6,12 @@ on:
     - master
 jobs:
   build_test:
-    name: Running build test...
+    name: Running Build Test
     runs-on: [ubuntu-18.04] 
     steps:
-      - id: build_test_1
+      - name: Checking src location
         working-directory: ${{ github.workspace }}
+        run: ls -la
+      
+      - name: Running build test script
         run: ./package.sh -b
