@@ -11,9 +11,5 @@ jobs:
     steps:
       - name: Checkout to current branch
         uses: actions/checkout@v2
-        
-      - name: Checking src location
-        run: ls
-      
       - name: Running build test script
         run: ./package.sh -b
