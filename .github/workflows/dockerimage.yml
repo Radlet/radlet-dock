@@ -9,6 +9,9 @@ jobs:
     name: Running Build Test
     runs-on: [ubuntu-18.04] 
     steps:
+      - name: Checkout to current branch
+        uses: actions/checkout@v2
+        
       - name: Checking src location
         run: ls
       
