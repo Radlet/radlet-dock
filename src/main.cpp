@@ -18,9 +18,9 @@
 #include "user.pb.h"
 
 // internal module
-#include "http.h"
 #include "ip_map.h"
 #include "port_map.h"
+#include "http_interface.h"
 #include "udp_interface.h"
 
 using namespace std;
@@ -56,8 +56,8 @@ void StartUdpServer() {
 
 void StartTcpServer() {
   cout << "Attempting to start Tcp server\n";
-  io::adaptor::Http http_listener;
-  http_listener.listen();
+  io::adaptor::tcp_interface::HttpReceiver httpReceiver;
+  httpReceiver.listen();
 }
 
 int main() {

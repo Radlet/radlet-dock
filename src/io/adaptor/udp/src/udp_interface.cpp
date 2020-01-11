@@ -52,8 +52,10 @@ void io::adaptor::udp_interface::UdpReceiver::start_receive() {
 void io::adaptor::udp_interface::UdpReceiver::handle_receive(
     const boost::system::error_code &error, std::size_t bytes_transferred) {
   if (!error) {
-    std::cout.write(data_, bytes_transferred);
-    std::cout << std::endl;
+    // std::cout.write();
+    // std::cout << std::endl;
+    std::string raw_message(data_, bytes_transferred);
+    discoveryHandler.extract_message( raw_message );
 
     start_receive();
   }
