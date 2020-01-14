@@ -20,6 +20,9 @@
 #include <boost/asio.hpp>
 #include <boost/shared_ptr.hpp>
 
+// internal modules
+#include "discovery_handler.h"
+
 namespace io {
 namespace adaptor {
 namespace udp_interface {
@@ -41,6 +44,7 @@ class io::adaptor::udp_interface::UdpReceiver {
   udp::endpoint sender_endpoint_;
   enum class Message { MAX_LENGTH = 1024 };
   char data_[static_cast<int>(Message::MAX_LENGTH)];
+  core::discovery::DiscoveryHandler discoveryHandler;
 
   /**
    * @brief starts the udp receiver
