@@ -46,12 +46,18 @@ The following libraries need to be installed for compiling the project from sour
 - CMake
 - gcc tool chain
 - Boost lib
+- InfluxDB OSS [Installation Guilde](https://docs.influxdata.com/influxdb/v1.7/introduction/installation/)
 
 ### Installing
 
 The easiest way to get started is to build from source, but bear in mind that the OS assumed for the project may not be the same for your local machine and thus the project may fail to compile. In that case, you should resort to docker.  
   
-The steps to compile from source are as follows:  
+The steps to compile from source are as follows:
+```bash
+git submodule update --init --recursive
+```
+This will update the required submodules.
+
 ```bash
 mkdir bin
 cd bin
