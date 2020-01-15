@@ -22,6 +22,7 @@
 #include "port_map.h"
 #include "http_interface.h"
 #include "udp_interface.h"
+#include "influxdb_utils.h"
 
 using namespace std;
 using namespace boost::uuids;
@@ -35,6 +36,9 @@ void demo_user() {
   // Set current time as registered time.
   user1->set_registered_time(time(NULL));
   cout << user1->DebugString() << endl;
+
+  // Influx DB demo
+  influxdb::InfluxDbUtils::Query("select * from cpu");
 }
 
 void StartUdpServer() {

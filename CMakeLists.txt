@@ -35,6 +35,14 @@ include_directories(
 add_subdirectory(
   ${CMAKE_SOURCE_DIR}/protos
 )
+
+add_subdirectory(
+  ${CMAKE_SOURCE_DIR}/libs/cpr
+)
+
+include_directories(${CPR_INCLUDE_DIRS})
+
 add_subdirectory(
   ${CMAKE_SOURCE_DIR}/src
 )
+
