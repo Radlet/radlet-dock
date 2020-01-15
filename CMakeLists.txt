@@ -46,7 +46,3 @@ add_subdirectory(
   ${CMAKE_SOURCE_DIR}/src
 )
 
-add_subdirectory(
-  ${CMAKE_SOURCE_DIR}/libs/cpr
-)
-include_directories(${CPR_INCLUDE_DIRS})
