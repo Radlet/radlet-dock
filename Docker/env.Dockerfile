@@ -9,6 +9,9 @@ RUN chmod 777 *
 RUN ./base.sh
 RUN ./protobuf.sh
 
+# Start Influxdb service
+RUN service influxdb start
+
 # clean up
 WORKDIR /
 RUN rm -rf /usr/src/scripts
