@@ -13,9 +13,10 @@ elif [[ "$1" == "-t" || $1 == "--unit-test" ]]; then
   echo "Unit tests to be added soon."
 elif [[ "$1" == "-mt" || $1 == "--manual-test" ]]; then
   docker run -it --net=host lattice_hub.test
+elif [[ "$1" == "-e" || $1 == "--env" ]]; then
+  docker build -t humbled/lattice_hub.dev -f ./Docker/env.Dockerfile .
 elif [[ "$1" == "-a" || $1 == "-all" ]]; then
   docker build -t lattice_hub.test -f ./Docker/dev.Dockerfile .
-  
 else
   echo "Invalid command. Try ./run_build_test.sh -help"
 fi

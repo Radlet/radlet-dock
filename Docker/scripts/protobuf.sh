@@ -1,4 +1,3 @@
-apt install -qy autoconf automake libtool curl make g++ unzip git
 git clone https://github.com/protocolbuffers/protobuf.git
 cd protobuf
 git submodule update --init --recursive
