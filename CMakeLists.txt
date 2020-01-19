@@ -23,25 +23,24 @@ endif()
 find_package( Boost 1.52 COMPONENTS system thread regex REQUIRED )
 find_package( Protobuf REQUIRED )
 
+# 3rd party lib sub_directories
+add_subdirectory(
+  ${CMAKE_SOURCE_DIR}/protos
+)
+add_subdirectory(
+  ${CMAKE_SOURCE_DIR}/libs/cpr
+)
+
 # include 3rd party header files
 include_directories(
   ${CMAKE_SOURCE_DIR}/libs/crow/inc
   ${CMAKE_SOURCE_DIR}/libs/sqlite3pp/inc
   ${Boost_INCLUDE_DIR}
   ${Protobuf_INCLUDE_DIRS}
+  ${CPR_INCLUDE_DIRS}
 )
 
-# sub_directories
-add_subdirectory(
-  ${CMAKE_SOURCE_DIR}/protos
-)
-
-add_subdirectory(
-  ${CMAKE_SOURCE_DIR}/libs/cpr
-)
-
-include_directories(${CPR_INCLUDE_DIRS})
-
+# source sub_directory
 add_subdirectory(
   ${CMAKE_SOURCE_DIR}/src
 )

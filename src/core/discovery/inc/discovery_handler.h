@@ -12,7 +12,7 @@ class DiscoveryHandler;
 class core::discovery::DiscoveryHandler{
 public:
     DiscoveryHandler();
-    void extract_message( std::string raw_message );
+    static void extract_message( std::string raw_message );
 };
 
 #endif
