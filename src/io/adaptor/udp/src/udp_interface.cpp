@@ -15,6 +15,9 @@
 // lib
 #include <boost/bind.hpp>
 
+// internal modules
+#include "discovery_handler.h"
+
 // implementation file
 #include "udp_interface.h"
 
@@ -52,10 +55,8 @@ void io::adaptor::udp_interface::UdpReceiver::start_receive() {
 void io::adaptor::udp_interface::UdpReceiver::handle_receive(
     const boost::system::error_code &error, std::size_t bytes_transferred) {
   if (!error) {
-    // std::cout.write();
-    // std::cout << std::endl;
     std::string raw_message(data_, bytes_transferred);
-    discoveryHandler.extract_message( raw_message );
+    core::discovery::DiscoveryHandler::extract_message( raw_message );
 
     start_receive();
   }

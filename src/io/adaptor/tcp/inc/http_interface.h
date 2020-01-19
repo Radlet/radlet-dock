@@ -31,7 +31,7 @@ public:
 
 class io::adaptor::tcp_interface::HttpSender{
   public:
-  HttpSender();
+  static bool requestAttach(std::string ip, std::string port, std::string mac);
 };
 
 #endif
