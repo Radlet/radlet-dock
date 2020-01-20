@@ -23,6 +23,7 @@
 #include "http_interface.h"
 #include "udp_interface.h"
 #include "influxdb_utils.h"
+#include "db_interface.h"
 
 using namespace std;
 using namespace boost::uuids;
@@ -66,10 +67,14 @@ void StartTcpServer() {
 
 int main() {
   demo_user();
+  database::DeviceDbInterface::connect("device.db");
+
   boost::thread_group worker_threads;
   worker_threads.create_thread(StartUdpServer);
   worker_threads.create_thread(StartTcpServer);
   cout << "Servers started in separate threads\n";
   worker_threads.join_all();
+
+  database::DeviceDbInterface::disconnect();
   return 0;
 }
