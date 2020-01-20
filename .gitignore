@@ -1,6 +1,9 @@
 # binary
 build
 
+# Sensor data
+hub_sensor_data
+
 # cmake
 CMakeCache.txt
 CMakeFiles
