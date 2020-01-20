@@ -28,9 +28,9 @@ void io::adaptor::tcp_interface::HttpReceiver::listen() {
   app.port(PortMap::TCP_HTTP_PORT).multithreaded().run();
 }
 
-bool io::adaptor::tcp_interface::HttpSender::requestAttach(std::string mac,
-                                                           std::string ip,
-                                                           std::string port) {
+bool io::adaptor::tcp_interface::HttpSender::requestAttach(std::string ip,
+                                                           std::string port,
+                                                           std::string mac) {
   boost::property_tree::ptree pt;
   pt.put("ip", "111.111.111.111");
   pt.put("mac", mac);
@@ -39,13 +39,11 @@ bool io::adaptor::tcp_interface::HttpSender::requestAttach(std::string mac,
   std::stringstream ss;
   boost::property_tree::json_parser::write_json(ss, pt);
 
-  auto r = cpr::Post(cpr::Url{"http://" + ip + ":" + port + "/attach"},
+  auto request = cpr::Post(cpr::Url{"http://" + ip + ":" + port + "/attach"},
                      cpr::Body{ss.str()});
 
-  std::cout << ss.str() << std::endl;
-
-  std::cout << r.header["content-type"]
+  std::cout << request.header["content-type"]
             << std::endl; // application/json; charset=utf-8
-  std::cout << r.status_code << std::endl;
-  std::cout << r.text << std::endl;
+  std::cout << request.status_code << std::endl;
+  std::cout << request.text << std::endl;
 }
