@@ -22,7 +22,7 @@
 #include "port_map.h"
 #include "http_interface.h"
 #include "udp_interface.h"
-#include "influxdb_utils.h"
+#include "sensor_data_interface.h"
 #include "db_interface.h"
 
 using namespace std;
@@ -38,8 +38,11 @@ void demo_user() {
   user1->set_registered_time(time(NULL));
   cout << user1->DebugString() << endl;
 
-  // Influx DB demo
-  influxdb::InfluxDbUtils::Query("select * from cpu");
+  // SensorDI demo
+  sensor_data_interface::SensorDI::AddDatabase("sensor_db");
+  sensor_data_interface::SensorDI::Query("select * from device_data");
+  sensor_data_interface::SensorDI::RecordDeviceData("d3:3e:af", "001d2s", "somedata");
+  sensor_data_interface::SensorDI::GetDeviceData("d3:3e:af");
 }
 
 void StartUdpServer() {
