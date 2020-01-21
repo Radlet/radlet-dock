@@ -1,0 +1,12 @@
+version: '3.4'
+services:
+  hub:
+    image: humbled/lattice_hub
+    network_mode: host
+    depends_on:
+      - influx
+
+  influx:
+    image: humbled/lattice_influx_db
+    ports: 
+      - 8086:8086
