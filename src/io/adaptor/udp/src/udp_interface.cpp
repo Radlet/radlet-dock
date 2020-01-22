@@ -1,19 +1,21 @@
 /**
  * @file udp_interface.cpp
  * @author humble_d
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2020-01-10
- * 
+ *
  * @copyright Copyright (c) 2020
- * 
+ *
  */
 
 // std lib
 #include <iostream>
 
-// lib
+// 3rd party lib
 #include <boost/bind.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
 
 // internal modules
 #include "discovery_handler.h"
@@ -56,7 +58,15 @@ void io::adaptor::udp_interface::UdpReceiver::handle_receive(
     const boost::system::error_code &error, std::size_t bytes_transferred) {
   if (!error) {
     std::string raw_message(data_, bytes_transferred);
-    core::discovery::DiscoveryHandler::extract_message( raw_message );
+
+    std::stringstream ss;
+    ss << raw_message;
+    boost::property_tree::ptree pt;
+    boost::property_tree::read_json(ss, pt);
+
+    core::discovery::DiscoveryHandler::handleDiscoveryData(
+        pt.get<std::string>("ip"), pt.get<std::string>("port"),
+        pt.get<std::string>("mac"));
 
     start_receive();
   }

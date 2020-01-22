@@ -1,3 +1,14 @@
+/**
+ * @file http_interface.h
+ * @author humble_D (humble.discipulus@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2020-01-22
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
+
 #ifndef LATTICE_HUB_IO_ADAPTOR_HTTP_INTERFACE
 #define LATTICE_HUB_IO_ADAPTOR_HTTP_INTERFACE
 
@@ -7,18 +18,26 @@
 // lib
 #include "crow_all.h"
 #include <boost/asio.hpp>
-// #include <boost/beast.hpp>
 
 namespace io {
 namespace adaptor {
 namespace tcp_interface {
 
+/**
+ * @brief A class for receiving HTTP data
+ * 
+ */
 class HttpReceiver;
+
+/**
+ * @brief A class for sending HTTP data
+ * 
+ */
 class HttpSender;
 
-}
-}
-}
+} // namespace tcp_interface
+} // namespace adaptor
+} // namespace io
 
 class io::adaptor::tcp_interface::HttpReceiver {
   std::string api_output;
@@ -29,8 +48,19 @@ public:
   void listen();
 };
 
-class io::adaptor::tcp_interface::HttpSender{
-  public:
+class io::adaptor::tcp_interface::HttpSender {
+public:
+  /**
+   * @brief The function sends hub data to the attach API exposed by
+   *        the IOT device. The information exchanged is used for 
+   *        duplex communication.
+   * 
+   * @param ip IP address of the hub
+   * @param port Port number of the HTTP server
+   * @param mac Mac address of the IOT device for verification
+   * @return true 
+   * @return false 
+   */
   static bool requestAttach(std::string ip, std::string port, std::string mac);
 };
 
