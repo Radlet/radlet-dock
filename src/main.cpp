@@ -24,6 +24,7 @@
 #include "udp_interface.h"
 #include "sensor_data_interface.h"
 #include "db_interface.h"
+#include "log.h"
 
 using namespace std;
 using namespace boost::uuids;
@@ -43,6 +44,12 @@ void demo_user() {
   sensor_data_interface::SensorDI::Query("select * from device_data");
   sensor_data_interface::SensorDI::RecordDeviceData("d3:3e:af", "001d2s", "somedata");
   sensor_data_interface::SensorDI::GetDeviceData("d3:3e:af");
+
+  // Logger
+  lattice_log::Log L("dummy.txt");
+  L.INFO("something");
+  L.ERROR("something terrible");
+  L.SUCCESS("Threat eliminated");
 }
 
 void StartUdpServer() {

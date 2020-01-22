@@ -9,7 +9,7 @@ set(
 	utils/thing
 	utils/port_map
 	utils/ip_map
-    utils/influxdb_utils
+    utils/log
 )
 
 set(SRC_PATHS "")
