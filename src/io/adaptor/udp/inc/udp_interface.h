@@ -1,6 +1,6 @@
 /**
  * @file udp_interface.h
- * @author humble_d
+ * @author humble_d (humble.discipulus@gmail.com)
  * @brief UDP interface classes ( listener )
  * @version 0.1
  * @date 2020-01-09
@@ -43,7 +43,7 @@ class io::adaptor::udp_interface::UdpReceiver {
   char data_[static_cast<int>(Message::MAX_LENGTH)];
 
   /**
-   * @brief starts the udp receiver
+   * @brief Starts the udp receiver
    *
    */
   void start_receive();
