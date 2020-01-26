@@ -67,10 +67,14 @@ void demo_user() {
   data_store.Add(user2);
   user2.set_id("use3");
   auto resp=data_store.GetData(user2);
-  log_warning(to_string(resp.first) + " " + resp.second.DebugString());
+  log_warning("Error Code : " + to_string(resp.first) + "\nResponse: " + 
+              resp.second.DebugString());
   sleep(4);
   resp = data_store.GetData(user2);
   log_error(to_string(resp.first));
+  data_store.ForceDelete(user3);
+  user2.set_id("ef22");
+  data_store.ForceDelete(user2);
 
 }
 
