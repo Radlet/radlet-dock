@@ -16,6 +16,14 @@ namespace lattice_log {
 #define INFO(data) logger(BLUE, __FILE__, std::to_string(__LINE__), data)
 #define ERROR(data) logger(RED, __FILE__, std::to_string(__LINE__), data)
 #define SUCCESS(data) logger(GREEN, __FILE__, std::to_string(__LINE__), data)
+#define log_info(data) lattice_log::Log::static_logger(\
+  BLUE, __FILE__, std::to_string(__LINE__), data)
+#define log_error(data) lattice_log::Log::static_logger(\
+  RED, __FILE__, std::to_string(__LINE__), data)
+#define log_success(data) lattice_log::Log::static_logger(\
+  GREEN, __FILE__, std::to_string(__LINE__), data)
+#define log_warning(data) lattice_log::Log::static_logger(\
+  YELLOW, __FILE__, std::to_string(__LINE__), data)
 class Log {
   ofstream log_file_;
   bool timestamp_, file_name_, line_number_, std_out_;
@@ -36,6 +44,18 @@ public:
     const string &information);
 
   ~Log() { log_file_.close(); }
+
+// Static members
+private:
+  static ofstream static_log_file_;
+
+public:
+  static void static_logger(
+    const string &color,
+    const string &file_name,
+    const string &line_number,
+    const string &information);
+
 };
 } // namespace lattice_log
 

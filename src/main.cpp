@@ -25,10 +25,14 @@
 #include "sensor_data_interface.h"
 #include "db_interface.h"
 #include "log.h"
+#include "short_time_data.h"
 
 using namespace std;
 using namespace boost::uuids;
 
+bool operator<(const lattice_hub::user::User &user1, const lattice_hub::user::User &user2) {
+  return user1.id() < user2.id();
+}
 void demo_user() {
   shared_ptr<lattice_hub::user::User> user1 =
       make_shared<lattice_hub::user::User>();
@@ -50,6 +54,24 @@ void demo_user() {
   L.INFO("something");
   L.ERROR("something terrible");
   L.SUCCESS("Threat eliminated");
+
+  log_info("Server start initiated successfully.");
+
+  short_time_data::ShortTimeData<lattice_hub::user::User> data_store;
+  auto user3 = lattice_hub::user::User();
+  user3.set_id("use3");
+  user3.set_name("use3");
+  data_store.Add(user3, 3);
+  auto user2 = lattice_hub::user::User();
+  user2.set_id("ef22");
+  data_store.Add(user2);
+  user2.set_id("use3");
+  auto resp=data_store.GetData(user2);
+  log_warning(to_string(resp.first) + " " + resp.second.DebugString());
+  sleep(4);
+  resp = data_store.GetData(user2);
+  log_error(to_string(resp.first));
+
 }
 
 void StartUdpServer() {
