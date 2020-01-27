@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 
 #include <boost/date_time.hpp>
 
@@ -32,3 +33,21 @@ void lattice_log::Log::logger(
     cout << info;
 }
 
+void lattice_log::Log::static_logger(
+  const string &color,
+  const string &file_name,
+  const string &line_number,
+  const string &data) {
+
+  string info = color;
+  info += to_iso_extended_string(boost::posix_time::second_clock::universal_time());
+  info += "[ " + file_name + " ]";
+  info += "[ " + line_number + " ] ";
+  info += data + END_COLOR + "\n";
+  lattice_log::Log::static_log_file_ << info;
+  lattice_log::Log::static_log_file_.flush();
+
+  cout << info;
+}
+
+ofstream lattice_log::Log::static_log_file_("server.txt",ios::app|ios::binary);
