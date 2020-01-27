@@ -1,23 +1,20 @@
-#include <iostream>
 #include <fstream>
+#include <iostream>
 
 #include <boost/date_time.hpp>
 
 #include "log.h"
 
+void lattice_log::Log::logger(const std::string &color,
+                              const std::string &file_name,
+                              const std::string &line_number,
+                              const std::string &data) {
 
-using namespace std;
-
-void lattice_log::Log::logger(
-  const string &color,
-  const string &file_name,
-  const string &line_number,
-  const string &data) {
- 
-  string info = color;
+  std::string info = color;
 
   if (timestamp_)
-    info += to_iso_extended_string(boost::posix_time::second_clock::universal_time());
+    info += to_iso_extended_string(
+        boost::posix_time::second_clock::universal_time());
 
   if (file_name_)
     info += "[ " + file_name + " ]";
@@ -29,25 +26,27 @@ void lattice_log::Log::logger(
   log_file_ << info;
   log_file_.flush();
 
-  if(std_out_)
-    cout << info;
+  if (std_out_)
+    std::cout << info;
 }
 
-void lattice_log::Log::static_logger(
-  const string &color,
-  const string &file_name,
-  const string &line_number,
-  const string &data) {
+void lattice_log::Log::static_logger(const std::string &color,
+                                     const std::string &file_name,
+                                     const std::string &line_number,
+                                     const std::string &data) {
 
-  string info = color;
-  info += to_iso_extended_string(boost::posix_time::second_clock::universal_time());
+  std::string info = color;
+  info +=
+      to_iso_extended_string(boost::posix_time::second_clock::universal_time());
   info += "[ " + file_name + " ]";
   info += "[ " + line_number + " ] ";
   info += data + END_COLOR + "\n";
   lattice_log::Log::static_log_file_ << info;
   lattice_log::Log::static_log_file_.flush();
 
-  cout << info;
+  std::cout << info;
 }
 
-ofstream lattice_log::Log::static_log_file_("server.txt",ios::app|ios::binary);
+std::ofstream lattice_log::Log::static_log_file_("server.txt",
+                                                 std::ios::app |
+                                                     std::ios::binary);
