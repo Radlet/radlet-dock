@@ -1,10 +1,14 @@
+// std
 #include "iostream"
 
+// 3rd party lib
 #include "cpr/cpr.h"
+
+// implemented file
 #include "sensor_data_interface.h"
 
 // Add database with name db_name.
-int sensor_data_interface::SensorDI::AddDatabase(const std::string &db_name) {
+int database::SensorDataInterface::AddDatabase(const std::string &db_name) {
 
   auto query = "create database " + db_name;
   auto response = cpr::Post(cpr::Url{"localhost:8086/query"},
@@ -18,14 +22,14 @@ int sensor_data_interface::SensorDI::AddDatabase(const std::string &db_name) {
   response.header["content-type"]; // application/json; charset=utf-8
   std::cout << "DB response: " << response.text;
 
-  if (sensor_data_interface::SensorDI::db_list.size() == 0) {
-    sensor_data_interface::SensorDI::default_db = db_name;
+  if (database::SensorDataInterface::db_list.size() == 0) {
+    database::SensorDataInterface::default_db = db_name;
   }
 
-  if (std::find(sensor_data_interface::SensorDI::db_list.begin(),
-                sensor_data_interface::SensorDI::db_list.end(),
-                db_name) == sensor_data_interface::SensorDI::db_list.end()) {
-    sensor_data_interface::SensorDI::db_list.push_back(db_name);
+  if (std::find(database::SensorDataInterface::db_list.begin(),
+                database::SensorDataInterface::db_list.end(),
+                db_name) == database::SensorDataInterface::db_list.end()) {
+    database::SensorDataInterface::db_list.push_back(db_name);
   }
 
   return 1;
@@ -33,12 +37,12 @@ int sensor_data_interface::SensorDI::AddDatabase(const std::string &db_name) {
 
 // Method to query from Sensor Data.
 std::vector<std::string>
-sensor_data_interface::SensorDI::Query(const std::string &query) {
+database::SensorDataInterface::Query(const std::string &query) {
   std::cout << "Influx db query: " << query << ".\n";
   std::vector<std::string> results;
   auto response = cpr::Get(
       cpr::Url{"localhost:8086/query"},
-      cpr::Parameters{{"db", sensor_data_interface::SensorDI::default_db},
+      cpr::Parameters{{"db", database::SensorDataInterface::default_db},
                       {"q", query}});
   if (response.status_code != 200) {
     std::cout << "Error in quering InfluxDB.\n";
@@ -53,11 +57,11 @@ sensor_data_interface::SensorDI::Query(const std::string &query) {
   return results;
 }
 
-void sensor_data_interface::SensorDI::Add(const std::string &query) {
+void database::SensorDataInterface::Add(const std::string &query) {
   std::cout << "Pushing entry into influx db" << query << ".\n";
 }
 
-int sensor_data_interface::SensorDI::RecordDeviceData(
+int database::SensorDataInterface::RecordDeviceData(
     const std::string &device_id, const std::string &device_data_id,
     const std::string &device_data, const std::string &time_stamp) {
 
@@ -69,7 +73,7 @@ int sensor_data_interface::SensorDI::RecordDeviceData(
                device_data_id + "\" data=\"" + device_data + "\" " + time_stamp;
   auto response = cpr::Post(
       cpr::Url{("localhost:8086/write?db=" +
-                sensor_data_interface::SensorDI::default_db + "&precision=ms")
+                database::SensorDataInterface::default_db + "&precision=ms")
                    .c_str()},
       cpr::Body{query.c_str()}, cpr::Header{{"Content-Type", "text/plain"}});
 
@@ -81,12 +85,12 @@ int sensor_data_interface::SensorDI::RecordDeviceData(
 }
 
 std::vector<std::string>
-sensor_data_interface::SensorDI::GetDeviceData(const std::string &device_id) {
+database::SensorDataInterface::GetDeviceData(const std::string &device_id) {
 
   auto query = "select * from device_data where id='\"" + device_id + "\"'";
   auto response = cpr::Get(
       cpr::Url{"localhost:8086/query"},
-      cpr::Parameters{{"db", sensor_data_interface::SensorDI::default_db},
+      cpr::Parameters{{"db", database::SensorDataInterface::default_db},
                       {"q", query}});
   std::vector<std::string> results;
   if (response.status_code != 200) {
@@ -102,6 +106,6 @@ sensor_data_interface::SensorDI::GetDeviceData(const std::string &device_id) {
   return results;
 }
 
-std::string sensor_data_interface::SensorDI::default_db = "lattice_data";
-std::vector<std::string> sensor_data_interface::SensorDI::db_list =
+std::string database::SensorDataInterface::default_db = "lattice_data";
+std::vector<std::string> database::SensorDataInterface::db_list =
     std::vector<std::string>();

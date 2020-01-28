@@ -15,7 +15,7 @@
 // stl
 #include <string>
 
-// libs
+// 3rd party libs
 #include <boost/array.hpp>
 #include <boost/asio.hpp>
 #include <boost/shared_ptr.hpp>
