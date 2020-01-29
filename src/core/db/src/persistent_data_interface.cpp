@@ -2,7 +2,7 @@
 #include <iostream>
 
 // implementation file
-#include "db_interface.h"
+#include "persistent_data_interface.h"
 
 sqlite3pp::database *database::DeviceDbInterface::db = nullptr;
 
