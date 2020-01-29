@@ -18,19 +18,23 @@
 #include "user.pb.h"
 
 // internal module
-#include "ip_map.h"
-#include "port_map.h"
-#include "http_interface.h"
-#include "udp_interface.h"
-#include "sensor_data_interface.h"
 #include "db_interface.h"
+#include "http_interface.h"
+#include "ip_map.h"
 #include "log.h"
+#include "port_map.h"
+#include "sensor_data_interface.h"
 #include "short_time_data.h"
+#include "udp_interface.h"
 
 using namespace std;
 using namespace boost::uuids;
 
-bool operator<(const lattice_hub::user::User &user1, const lattice_hub::user::User &user2) {
+// logger initiated for main.cpp
+lattice_log::Log Logger("main.txt");
+
+bool operator<(const lattice_hub::user::User &user1,
+               const lattice_hub::user::User &user2) {
   return user1.id() < user2.id();
 }
 void demo_user() {
@@ -46,7 +50,8 @@ void demo_user() {
   // SensorDI demo
   sensor_data_interface::SensorDI::AddDatabase("sensor_db");
   sensor_data_interface::SensorDI::Query("select * from device_data");
-  sensor_data_interface::SensorDI::RecordDeviceData("d3:3e:af", "001d2s", "somedata");
+  sensor_data_interface::SensorDI::RecordDeviceData("d3:3e:af", "001d2s",
+                                                    "somedata");
   sensor_data_interface::SensorDI::GetDeviceData("d3:3e:af");
 
   // Logger
@@ -66,29 +71,25 @@ void demo_user() {
   user2.set_id("ef22");
   data_store.Add(user2);
   user2.set_id("use3");
-  auto resp=data_store.GetData(user2);
-  log_warning("Error Code : " + to_string(resp.first) + "\nResponse: " + 
-              resp.second.DebugString());
+  auto resp = data_store.GetData(user2);
+  log_warning("Error Code : " + to_string(resp.first) +
+              "\nResponse: " + resp.second.DebugString());
   sleep(4);
   resp = data_store.GetData(user2);
   log_error(to_string(resp.first));
   data_store.ForceDelete(user3);
   user2.set_id("ef22");
   data_store.ForceDelete(user2);
-
 }
 
 void StartUdpServer() {
-  cout << "Attempting to start Udp server\n";
+  log_info("Attempting to start Udp server\n");
   try {
     boost::shared_ptr<boost::asio::io_service> io_service(
         new boost::asio::io_service);
-
-    // start udp receiver
     io::adaptor::udp_interface::UdpReceiver udpReceiver(
         io_service, PortMap::UDP_MULTICAST_PORT, IpMap::UDP_LISTENER,
         IpMap::UDP_MULTICAST);
-
     io_service->run();
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;
@@ -96,19 +97,23 @@ void StartUdpServer() {
 }
 
 void StartTcpServer() {
-  cout << "Attempting to start Tcp server\n";
+  log_info("Attempting to start Tcp server\n");
   io::adaptor::tcp_interface::HttpReceiver httpReceiver;
   httpReceiver.listen();
 }
 
 int main() {
   demo_user();
+  
+  log_info("Attempting to start DB service\n");
   database::DeviceDbInterface::connect("device.db");
+  log_success("DB service started successfully\n");
 
   boost::thread_group worker_threads;
   worker_threads.create_thread(StartUdpServer);
   worker_threads.create_thread(StartTcpServer);
-  cout << "Servers started in separate threads\n";
+  
+  log_success("Servers started in separate threads\n");
   worker_threads.join_all();
 
   database::DeviceDbInterface::disconnect();
