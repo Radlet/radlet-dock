@@ -1,13 +1,18 @@
 // stl
 #include <iostream>
+#include <vector>
 
 // 3rd party lib
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <cpr/cpr.h>
 
+// proto
+#include "device.pb.h"
+
 // internal modules
 #include "port_map.h"
+#include "temporary_data_interface.h"
 
 // implementation file
 #include "http_interface.h"
@@ -21,9 +26,29 @@ void io::adaptor::tcp_interface::HttpReceiver::listen() {
       .methods("PUT"_method)(
           [&](const crow::request &req) { return api_output.c_str(); });
 
-  CROW_ROUTE(app, "/devices")
-      .methods("GET"_method)(
-          [&](const crow::request &req) { return api_output.c_str(); });
+  CROW_ROUTE(app, "/getavailabledevices")
+      .methods("GET"_method)([&](const crow::request &req) {
+        std::vector<lattice_hub::device::Device> device_list =
+            database::TemporaryDataInterface::getAll();
+
+        std::cout << device_list.size() << std::endl;
+        crow::json::wvalue response_data;
+
+        boost::property_tree::ptree pt;
+        boost::property_tree::ptree device_info_array;
+
+        std::stringstream ss;
+        for (int i = 0; i < device_list.size(); i++) {
+          boost::property_tree::ptree device_info;
+          device_info.put("id", device_list[i].id());
+          device_info.put("name", device_list[i].name());
+          device_info_array.push_back(std::make_pair("", device_info));
+        }
+        pt.add_child("deviceArray", device_info_array);
+        boost::property_tree::json_parser::write_json(ss, pt);
+
+        return crow::response(ss.str());
+      });
 
   app.port(PortMap::TCP_HTTP_PORT).multithreaded().run();
 }
@@ -40,7 +65,7 @@ bool io::adaptor::tcp_interface::HttpSender::requestAttach(std::string ip,
   boost::property_tree::json_parser::write_json(ss, pt);
 
   auto request = cpr::Post(cpr::Url{"http://" + ip + ":" + port + "/attach"},
-                     cpr::Body{ss.str()});
+                           cpr::Body{ss.str()});
 
   std::cout << request.header["content-type"]
             << std::endl; // application/json; charset=utf-8

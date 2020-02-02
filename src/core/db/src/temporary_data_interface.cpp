@@ -5,7 +5,7 @@
 #include "temporary_data_interface.h"
 
 bool operator<(const lattice_hub::device::Device &device1,
-          const lattice_hub::device::Device &device2) {
+               const lattice_hub::device::Device &device2) {
   return device1.id() < device2.id();
 }
 
@@ -36,6 +36,17 @@ database::TemporaryDataInterface::get(std::string key) {
   device.set_id(key);
   auto response = data_store->GetData(device);
   return response.second;
+}
+
+std::vector<lattice_hub::device::Device> database::TemporaryDataInterface::getAll(){
+  vector<lattice_hub::device::Device> device_vector;
+  for(int i = 0; i < 10; i++){
+    auto device = lattice_hub::device::Device();
+    device.set_id(to_string(i));
+    device.set_name("device" + to_string(i));
+    device_vector.push_back(device);
+  }
+  return device_vector;
 }
 
 bool database::TemporaryDataInterface::remove(std::string key) {
