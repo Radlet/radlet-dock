@@ -16,17 +16,16 @@
 // proto
 #include "thing_buffer.pb.h"
 #include "user.pb.h"
-#include "device.pb.h"
 
 // internal module
-#include "http_interface.h"
-#include "udp_interface.h"
 #include "port_map.h"
 #include "ip_map.h"
 #include "persistent_data_interface.h"
 #include "sensor_data_interface.h"
 #include "temporary_data_interface.h"
 #include "log.h"
+#include "http_interface.h"
+#include "udp_interface.h"
 
 using namespace std;
 using namespace boost::uuids;

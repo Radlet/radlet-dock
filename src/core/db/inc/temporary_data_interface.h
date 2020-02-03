@@ -3,6 +3,7 @@
 
 // std
 #include <string>
+#include <vector>
 
 // protos
 #include "device.pb.h"
@@ -24,10 +25,10 @@ public:
   static bool add(lattice_hub::device::Device device, int expiry_time = 3);
   lattice_hub::device::Device get(std::string key);
   // lattice_hub::device::Device get(lattice_hub::device::Device device);
-  // static bool getAll();
+  static std::vector<lattice_hub::device::Device> getAll();
   static bool remove(std::string key);
   // lattice_hub::device::Device remove(lattice_hub::device::Device device);
-  // static bool removeAll();
+  static bool removeAll();
 };
 
 #endif

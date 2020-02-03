@@ -1,16 +1,16 @@
 # setting source variable
 set(
 	SOURCE_DIR
+	utils/short_time_data
+	utils/thing
+	utils/port_map
+	utils/ip_map
+	utils/log
 	core/db
 	core/discovery
 	core/state
 	io/adaptor/tcp
 	io/adaptor/udp
-	utils/thing
-	utils/port_map
-	utils/ip_map
-    utils/log
-    utils/short_time_data
 )
 
 set(SRC_PATHS "")
