@@ -1,7 +1,7 @@
 version: '3.4'
 services:
-  hub:
-    image: lattice_hub.test
+  radlet_dock:
+    image: radlet_dock.dev
     stdin_open: true
     tty: true
     network_mode: host
@@ -9,6 +9,6 @@ services:
       - influx
 
   influx:
-    image: humbled/lattice_influx_db
+    image: humbled/radlet_dock_influx_db
     ports: 
       - 8086:8086
