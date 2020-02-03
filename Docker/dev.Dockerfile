@@ -1,5 +1,5 @@
 # our base image
-FROM humbled/lattice_hub.dev
+FROM humbled/radlet_dock.env
 
 # # copy files to container
 COPY . /usr/src/app

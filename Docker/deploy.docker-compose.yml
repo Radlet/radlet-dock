@@ -1,7 +1,7 @@
 version: '3.4'
 services:
-  hub:
-    image: humbled/lattice_hub
+  radlet_dock:
+    image: humbled/radlet_dock
     network_mode: host
     depends_on:
       - influx

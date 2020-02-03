@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.10)
 
 # set project name
-project(lattice_hub)
+project(radlet_dock)
 
 # set compiler c++ standard
 set(CMAKE_CXX_STANDARD 17)
