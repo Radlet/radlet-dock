@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package lattice_hub.device;
+package radlet_dock.device;
 
 // This proto defines device being discovered by the hub
 message Device {

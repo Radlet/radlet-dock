@@ -1,5 +1,5 @@
-#ifndef LATTICE_HUB_UTILS_LOG
-#define LATTICE_HUB_UTILS_LOG
+#ifndef RADLET_DOCK_UTILS_LOG
+#define RADLET_DOCK_UTILS_LOG
 
 // std
 #include <fstream>
@@ -11,27 +11,27 @@
 #define YELLOW "\e[1;33m"
 #define END_COLOR "\e[0m"
 
-namespace lattice_log {
+namespace radlet_log {
 
 #define INFO(data) logger(BLUE, __FILE__, std::to_string(__LINE__), data)
 #define ERROR(data) logger(RED, __FILE__, std::to_string(__LINE__), data)
 #define SUCCESS(data) logger(GREEN, __FILE__, std::to_string(__LINE__), data)
 #define log_info(data)                                                         \
-  lattice_log::Log::static_logger(BLUE, __FILE__, std::to_string(__LINE__),    \
+  radlet_log::Log::static_logger(BLUE, __FILE__, std::to_string(__LINE__),    \
                                   data)
 #define log_error(data)                                                        \
-  lattice_log::Log::static_logger(RED, __FILE__, std::to_string(__LINE__), data)
+  radlet_log::Log::static_logger(RED, __FILE__, std::to_string(__LINE__), data)
 #define log_success(data)                                                      \
-  lattice_log::Log::static_logger(GREEN, __FILE__, std::to_string(__LINE__),   \
+  radlet_log::Log::static_logger(GREEN, __FILE__, std::to_string(__LINE__),   \
                                   data)
 #define log_warning(data)                                                      \
-  lattice_log::Log::static_logger(YELLOW, __FILE__, std::to_string(__LINE__),  \
+  radlet_log::Log::static_logger(YELLOW, __FILE__, std::to_string(__LINE__),  \
                                   data)
 
 class Log;
-} // namespace lattice_log
+} // namespace radlet_log
 
-class lattice_log::Log {
+class radlet_log::Log {
   std::ofstream log_file_;
   bool timestamp_, file_name_, line_number_, std_out_;
   std::string prefix_;

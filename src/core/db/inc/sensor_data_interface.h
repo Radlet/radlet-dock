@@ -1,5 +1,5 @@
-#ifndef LATTICE_HUB_SENSOR_DI
-#define LATTICE_HUB_SENSOR_DI
+#ifndef RADLET_DOCK_SENSOR_DI
+#define RADLET_DOCK_SENSOR_DI
 
 #include <string>
 #include <vector>

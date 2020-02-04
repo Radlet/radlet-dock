@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package lattice_hub.user;
+package radlet_dock.user;
 
 // This proto defines user registered via app.
 message User {

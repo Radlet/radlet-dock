@@ -1,5 +1,5 @@
-#ifndef LATTICE_HUB_UTILS_IP_MAP
-#define LATTICE_HUB_UTILS_IP_MAP
+#ifndef RADLET_DOCK_UTILS_IP_MAP
+#define RADLET_DOCK_UTILS_IP_MAP
 
 #include <string>
 

@@ -5,7 +5,7 @@
 
 #include "log.h"
 
-void lattice_log::Log::logger(const std::string &color,
+void radlet_log::Log::logger(const std::string &color,
                               const std::string &file_name,
                               const std::string &line_number,
                               const std::string &data) {
@@ -30,7 +30,7 @@ void lattice_log::Log::logger(const std::string &color,
     std::cout << info;
 }
 
-void lattice_log::Log::static_logger(const std::string &color,
+void radlet_log::Log::static_logger(const std::string &color,
                                      const std::string &file_name,
                                      const std::string &line_number,
                                      const std::string &data) {
@@ -41,12 +41,12 @@ void lattice_log::Log::static_logger(const std::string &color,
   info += "[ " + file_name + " ]";
   info += "[ " + line_number + " ] ";
   info += data + END_COLOR + "\n";
-  lattice_log::Log::static_log_file_ << info;
-  lattice_log::Log::static_log_file_.flush();
+  radlet_log::Log::static_log_file_ << info;
+  radlet_log::Log::static_log_file_.flush();
 
   std::cout << info;
 }
 
-std::ofstream lattice_log::Log::static_log_file_("server.txt",
+std::ofstream radlet_log::Log::static_log_file_("server.txt",
                                                  std::ios::app |
                                                      std::ios::binary);

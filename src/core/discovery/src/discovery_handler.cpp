@@ -19,7 +19,7 @@ void core::discovery::DiscoveryHandler::handleDiscoveryData(std::string ip,
                                                             std::string port,
                                                             std::string mac) {
 
-  auto device = lattice_hub::device::Device();
+  auto device = radlet_dock::device::Device();
   device.set_id(mac);
   device.set_name(ip);
   database::TemporaryDataInterface::add(device);
