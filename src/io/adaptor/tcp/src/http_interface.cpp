@@ -28,7 +28,7 @@ void io::adaptor::tcp_interface::HttpReceiver::listen() {
 
   CROW_ROUTE(app, "/getavailabledevices")
       .methods("GET"_method)([&](const crow::request &req) {
-        std::vector<lattice_hub::device::Device> device_list =
+        std::vector<radlet_dock::device::Device> device_list =
             database::TemporaryDataInterface::getAll();
 
         std::cout << device_list.size() << std::endl;

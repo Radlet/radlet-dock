@@ -71,18 +71,18 @@ This should create a binary named `server`. Execute the binary with the followin
   
 If you plan to use docker, which is a much better platform as it eliminates the problem of cross-compilation, then the following steps need to be followed:
 ```bash
-docker build -t temp/lattice_hub .
+docker build -t temp/radlet_dock .
 ```
 If everything runs successfully, then create a container from the image that we just created by running the following commands:
 ```bash
-docker run -d --name lattice_hub -p 8888:8080 temp/lattice_hub
+docker run -d --name radlet_dock -p 8888:8080 temp/radlet_dock
 ```
 
 To check the output go to http://localhost:8888  
   
   
 The latest successful build of the app is available at Docker Hub  
-[![Docker](https://img.shields.io/docker/pulls/humbled/lattice_hub)](https://hub.docker.com/repository/docker/humbled/lattice_hub)
+[![Docker](https://img.shields.io/docker/pulls/humbled/radlet_dock)](https://hub.docker.com/repository/docker/humbled/radlet_dock)
 
 
 ---
@@ -91,11 +91,11 @@ The latest successful build of the app is available at Docker Hub
 
 ### Build test
 The dev environment for the app is available at Docker Hub  
-[![Docker](https://img.shields.io/docker/pulls/humbled/lattice_hub.dev)](https://hub.docker.com/repository/docker/humbled/lattice_hub.dev)
+[![Docker](https://img.shields.io/docker/pulls/humbled/radlet_dock.dev)](https://hub.docker.com/repository/docker/humbled/radlet_dock.dev)
 
 This image can be used for build test using the following command:
 ```
-docker build -t lattice_hub.test -f ./Docker/dev.Dockerfile .
+docker build -t radlet_dock.test -f ./Docker/dev.Dockerfile .
 ```
 If the build is successful the image will be created successfully which can then be run for runtime tests. 
 

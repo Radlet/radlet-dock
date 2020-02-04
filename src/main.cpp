@@ -31,16 +31,16 @@ using namespace std;
 using namespace boost::uuids;
 
 // logger initiated for main.cpp
-lattice_log::Log Logger("main.txt");
+radlet_log::Log Logger("main.txt");
 
-bool operator<(const lattice_hub::user::User &user1,
-               const lattice_hub::user::User &user2) {
+bool operator<(const radlet_dock::user::User &user1,
+               const radlet_dock::user::User &user2) {
   return user1.id() < user2.id();
 }
 
 // void demo_user() {
-//   shared_ptr<lattice_hub::user::User> user1 =
-//       make_shared<lattice_hub::user::User>();
+//   shared_ptr<radlet_dock::user::User> user1 =
+//       make_shared<radlet_dock::user::User>();
 //   // Generate random boost uuid, convert it to string-16 bytes and store.
 //   user1->set_id(boost::lexical_cast<string>(random_generator()()).c_str());
 //   user1->set_name("Lattic_hub_dummy_user");
@@ -55,19 +55,19 @@ bool operator<(const lattice_hub::user::User &user1,
 //   database::SensorDataInterface::GetDeviceData("d3:3e:af");
 
 //   // Logger
-//   lattice_log::Log L("dummy.txt");
+//   radlet_log::Log L("dummy.txt");
 //   L.INFO("something");
 //   L.ERROR("something terrible");
 //   L.SUCCESS("Threat eliminated");
 
 //   log_info("Server start initiated successfully.");
 
-//   short_time_data::ShortTimeData<lattice_hub::user::User> data_store;
-//   auto user3 = lattice_hub::user::User();
+//   short_time_data::ShortTimeData<radlet_dock::user::User> data_store;
+//   auto user3 = radlet_dock::user::User();
 //   user3.set_id("use3");
 //   user3.set_name("use3");
 //   data_store.Add(user3, 3);
-//   auto user2 = lattice_hub::user::User();
+//   auto user2 = radlet_dock::user::User();
 //   user2.set_id("ef22");
 //   data_store.Add(user2);
 //   user2.set_id("use3");

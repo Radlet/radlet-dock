@@ -4,23 +4,23 @@
 // implementation file
 #include "temporary_data_interface.h"
 
-bool operator<(const lattice_hub::device::Device &device1,
-               const lattice_hub::device::Device &device2) {
+bool operator<(const radlet_dock::device::Device &device1,
+               const radlet_dock::device::Device &device2) {
   return device1.id() < device2.id();
 }
 
-short_time_data::ShortTimeData<lattice_hub::device::Device>
+short_time_data::ShortTimeData<radlet_dock::device::Device>
     *database::TemporaryDataInterface::data_store = nullptr;
 
 bool database::TemporaryDataInterface::connect() {
   data_store =
-      new short_time_data::ShortTimeData<lattice_hub::device::Device>();
+      new short_time_data::ShortTimeData<radlet_dock::device::Device>();
   std::cout << "temp db file created" << std::endl;
 }
 
 bool database::TemporaryDataInterface::disconnect() { delete data_store; }
 
-bool database::TemporaryDataInterface::add(lattice_hub::device::Device device,
+bool database::TemporaryDataInterface::add(radlet_dock::device::Device device,
                                            int expiry_time) {
   try {
     data_store->Add(device, expiry_time);
@@ -30,18 +30,18 @@ bool database::TemporaryDataInterface::add(lattice_hub::device::Device device,
   }
 }
 
-lattice_hub::device::Device
+radlet_dock::device::Device
 database::TemporaryDataInterface::get(std::string key) {
-  auto device = lattice_hub::device::Device();
+  auto device = radlet_dock::device::Device();
   device.set_id(key);
   auto response = data_store->GetData(device);
   return response.second;
 }
 
-std::vector<lattice_hub::device::Device> database::TemporaryDataInterface::getAll(){
-  vector<lattice_hub::device::Device> device_vector;
+std::vector<radlet_dock::device::Device> database::TemporaryDataInterface::getAll(){
+  vector<radlet_dock::device::Device> device_vector;
   for(int i = 0; i < 10; i++){
-    auto device = lattice_hub::device::Device();
+    auto device = radlet_dock::device::Device();
     device.set_id(to_string(i));
     device.set_name("device" + to_string(i));
     device_vector.push_back(device);
@@ -51,7 +51,7 @@ std::vector<lattice_hub::device::Device> database::TemporaryDataInterface::getAl
 
 bool database::TemporaryDataInterface::remove(std::string key) {
   try {
-    auto device = lattice_hub::device::Device();
+    auto device = radlet_dock::device::Device();
     device.set_id(key);
     data_store->ForceDelete(device);
     return true;

@@ -1,5 +1,5 @@
-#ifndef LATTICE_HUB_CORE_UTILS_THING_H
-#define LATTICE_HUB_CORE_UTILS_THING_H
+#ifndef RADLET_DOCK_CORE_UTILS_THING_H
+#define RADLET_DOCK_CORE_UTILS_THING_H
 
 #include <boost/property_tree/ptree.hpp>
 

@@ -7,6 +7,6 @@ services:
       - influx
 
   influx:
-    image: humbled/lattice_influx_db
+    image: humbled/radlet_dock_influx_db
     ports: 
       - 8086:8086

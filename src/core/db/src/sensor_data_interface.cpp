@@ -106,6 +106,6 @@ database::SensorDataInterface::GetDeviceData(const std::string &device_id) {
   return results;
 }
 
-std::string database::SensorDataInterface::default_db = "lattice_data";
+std::string database::SensorDataInterface::default_db = "radlet_data";
 std::vector<std::string> database::SensorDataInterface::db_list =
     std::vector<std::string>();
