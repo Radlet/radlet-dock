@@ -29,10 +29,37 @@ class ShortTimeData {
 
 public:
 
-  bool operator()(const shared_ptr<DataType> &obj_1, const shared_ptr<DataType> &obj_2) const {
-    return (*obj_1) < (*obj_2);
+  /*
+  *
+  * This method adds/refreshes data items in batches.
+  *
+  * Arguments : data_vec - A vector of data items to be added.
+  *
+  *             duration_secs - Duration of time for which data is valid.
+  *             init_time_secs - Starting time from which data item valid.
+  *                              Value = 0, implies use current time.
+  *
+  */
+  void Add(const vector<DataType> &data_vec, int duration_secs = 30,
+           long long init_time_secs = 0ll) {
+
+    init_time_secs = init_time_secs ? init_time_secs : time(0);
+
+    for (auto &data_item: data_vec) {
+      Add(data_item, duration_secs, init_time_secs);
+    }
   }
 
+  /*
+  *
+  * This method adds a data item to the data store.
+  *
+  * Arguments : data - Item to be added/refreshed in data store.
+  *             duration_secs - Duration of time for which data is valid.
+  *             init_time_secs - Starting time from which data item valid.
+  *                              Value = 0, implies use current time.
+  *                              Useful for pushing data items in bulk.
+  */
   void Add(const DataType &data, int duration_secs = 30,
            long long init_time_secs = 0ll) {
 
@@ -74,6 +101,13 @@ public:
     }
   }
 
+  /*
+  * This method removes the item matching data forcefully from data store.
+  *
+  * Arguments : data - It is a object of class DataType with all those fields
+  *                    filled which are used to identify object uniquely.
+  *
+  */
   void ForceDelete(const DataType &data) {
 
     auto d_ptr = make_shared<DataType>(data);
@@ -89,9 +123,14 @@ public:
     ExpiryCleanUp();
   }
 
-  // GetData copy of stored data item.
-  // Returns error_code, data object.
-  // error_code 1 for success 0 otherwise.
+  /*
+  * GetData : Returns copy of stored data item, where data is object
+  *           containing primary keys field filled for data item to
+  *           search.
+  *
+  * Returns: pair<error_code, data> object.
+  *          error_code 0 for success 1 otherwise.
+  */
   pair<int, DataType> GetData(const DataType &data) {
     ExpiryCleanUp();
 
@@ -101,7 +140,24 @@ public:
       ret = iter->first;
     }
 
-    return {ret!=nullptr, ret==nullptr?DataType():*ret};
+    return {ret==nullptr, ret==nullptr?DataType():*ret};
+  }
+
+  /*
+  *
+  * This method returns vector of all items.
+  *
+  */
+  vector<DataType> GetAll() {
+
+    ExpiryCleanUp(); 
+    vector<DataType> result;
+
+    for(auto &data_time_pair:data_time_map_){
+      result.push_back(*(data_time_pair.first));
+    }
+
+    return std::forward(result);
   }
 };
 

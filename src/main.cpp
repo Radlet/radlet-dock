@@ -38,49 +38,46 @@ bool operator<(const radlet_dock::user::User &user1,
   return user1.id() < user2.id();
 }
 
-// void demo_user() {
-//   shared_ptr<radlet_dock::user::User> user1 =
-//       make_shared<radlet_dock::user::User>();
-//   // Generate random boost uuid, convert it to string-16 bytes and store.
-//   user1->set_id(boost::lexical_cast<string>(random_generator()()).c_str());
-//   user1->set_name("Lattic_hub_dummy_user");
-//   // Set current time as registered time.
-//   user1->set_registered_time(time(NULL));
-//   cout << user1->DebugString() << endl;
+/*void demo_user() {
+   radlet_dock::user::User user1;
+   user1.set_id("id1");
+   user1.set_name("Lattic_hub_dummy_user");
+   // Set current time as registered time.
+   user1.set_registered_time(time(NULL));
+   cout << user1.DebugString() << endl;
 
-//   // SensorDataInterface demo
-//   database::SensorDataInterface::Query("select * from device_data");
-//   database::SensorDataInterface::RecordDeviceData("d3:3e:af", "001d2s",
-//                                                   "somedata");
-//   database::SensorDataInterface::GetDeviceData("d3:3e:af");
+   // SensorDataInterface demo
+   database::SensorDataInterface::Query("select * from device_data");
+   database::SensorDataInterface::RecordDeviceData("d3:3e:af", "001d2s",
+                                                   "somedata");
+   database::SensorDataInterface::GetDeviceData("d3:3e:af");
 
-//   // Logger
-//   radlet_log::Log L("dummy.txt");
-//   L.INFO("something");
-//   L.ERROR("something terrible");
-//   L.SUCCESS("Threat eliminated");
+   // Logger
+   radlet_log::Log L("dummy.txt");
+   L.INFO("something");
+   L.ERROR("something terrible");
+   L.SUCCESS("Threat eliminated");
 
-//   log_info("Server start initiated successfully.");
+   log_info("Server start initiated successfully.");
 
-//   short_time_data::ShortTimeData<radlet_dock::user::User> data_store;
-//   auto user3 = radlet_dock::user::User();
-//   user3.set_id("use3");
-//   user3.set_name("use3");
-//   data_store.Add(user3, 3);
-//   auto user2 = radlet_dock::user::User();
-//   user2.set_id("ef22");
-//   data_store.Add(user2);
-//   user2.set_id("use3");
-//   auto resp = data_store.GetData(user2);
-//   log_warning("Error Code : " + to_string(resp.first) +
-//               "\nResponse: " + resp.second.DebugString());
-//   sleep(4);
-//   resp = data_store.GetData(user2);
-//   log_error(to_string(resp.first));
-//   data_store.ForceDelete(user3);
-//   user2.set_id("ef22");
-//   data_store.ForceDelete(user2);
-// }
+   short_time_data::ShortTimeData<radlet_dock::user::User> data_store;
+   auto user3 = radlet_dock::user::User();
+   user3.set_id("user3");
+   user3.set_name("user_name3");
+   data_store.Add(user3, 3);
+   auto user2 = radlet_dock::user::User();
+   user2.set_id("user2");
+   user2.set_name("user_name2");
+   data_store.Add(user2);
+
+   auto resp = data_store.GetData(user2);
+   log_warning("Error Code : " + to_string(resp.first) +
+               "\nResponse: " + resp.second.DebugString());
+   sleep(4);
+   resp = data_store.GetData(user3);
+   log_error(to_string(resp.first));
+   data_store.ForceDelete(user2);
+ }*/
 
 void StartUdpServer() {
   log_info("Attempting to start Udp server\n");
