@@ -3,7 +3,7 @@
  <img width=660px height=400px src="./docs/lattice.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">Lattice Hub</h3>
+<h3 align="center">Radlet Hub</h3>
 
 <div align="center">
 
@@ -16,7 +16,7 @@
 
 ---
 
-<p align="center"> This project is one of the three components that makes up the lattice ecosystem. The Lattice Hub is the bridging unit and the controlling box for the edge devices. Computations that are too heavy to be carried out on edge devices are dealt by Lattice Hub. It is also responsible for coordinating the other edge devices and optimizing data acquisition and command delivery.
+<p align="center"> This project is one of the three components that makes up the Radlet ecosystem. The Radlet Hub is the bridging unit and the controlling box for the edge devices. Computations that are too heavy to be carried out on edge devices are dealt by Radlet Hub. It is also responsible for coordinating the other edge devices and optimizing data acquisition and command delivery.
     <br> 
 </p>
 
