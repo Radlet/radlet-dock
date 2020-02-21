@@ -156,8 +156,8 @@ public:
     for(auto &data_time_pair:data_time_map_){
       result.push_back(*(data_time_pair.first));
     }
-
-    return std::forward(result);
+    
+    return result;
   }
 };
 

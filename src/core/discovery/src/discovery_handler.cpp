@@ -23,7 +23,7 @@ void core::discovery::DiscoveryHandler::handleDiscoveryData(std::string ip,
   device.set_id(mac);
   device.set_name(ip);
   database::TemporaryDataInterface::add(device);
-  log_info("Server start initiated successfully.");
+  log_info("Device discovery successful");
   log_warning("Device data: " + device.DebugString());
   // io::adaptor::tcp_interface::HttpSender::requestAttach(ip, port, mac);
 }
