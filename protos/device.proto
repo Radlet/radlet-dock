@@ -4,12 +4,18 @@ package radlet_dock.device;
 
 // This proto defines device being discovered by the hub
 message Device {
-  // This is the unique device id.
-  bytes id = 1;
+  // This is the unique device id (mac).
+  string id = 1;
 
-  // User's name.
-  string name = 2;
+  // Link to device (ip + port).
+  string link = 2;
+
+  string type = 3;
+
+  string title = 4;
+
+  string description = 5;
 
   // Registered time of user.
-  int64 registered_time = 3;
+  int64 registered_time = 6;
 }

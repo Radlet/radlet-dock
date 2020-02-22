@@ -65,8 +65,12 @@ void io::adaptor::udp_interface::UdpReceiver::handle_receive(
     boost::property_tree::read_json(ss, pt);
 
     core::discovery::DiscoveryHandler::handleDiscoveryData(
-        pt.get<std::string>("ip"), pt.get<std::string>("port"),
-        pt.get<std::string>("mac"));
+        pt.get<std::string>("id"), 
+        pt.get<std::string>("link"),
+        pt.get<std::string>("type"),
+        pt.get<std::string>("title"),
+        pt.get<std::string>("description")  
+        );
 
     start_receive();
   }

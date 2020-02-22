@@ -34,12 +34,15 @@ public:
    * @brief This function is called in response to a UDP packet
    *        sent to the hub by a discoverable IOT device
    *
-   * @param ip IP address of the IOT device
-   * @param port Port number of TPC server of IOT device
-   * @param mac Mac address of the IOT device
+   * @param id Unique ID of the IOT device (mac)
+   * @param link Link to the device for TCP communication
+   * @param type Type of IOT device
+   * @param title Title of the device
+   * @param description Textual description of the IOT device
    */
-  static void handleDiscoveryData(std::string ip, std::string port,
-                                  std::string mac);
+  static void handleDiscoveryData(std::string id, std::string link,
+                                  std::string type, std::string title,
+                                  std::string description);
 };
 
 #endif
