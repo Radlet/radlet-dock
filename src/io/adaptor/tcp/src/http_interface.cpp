@@ -44,10 +44,12 @@ void io::adaptor::tcp_interface::HttpReceiver::listen() {
         for (int i = 0; i < device_list.size(); i++) {
           boost::property_tree::ptree device_info;
           device_info.put("id", device_list[i].id());
-          device_info.put("name", device_list[i].name());
+          device_info.put("type", device_list[i].type());
+          device_info.put("title", device_list[i].title());
+          device_info.put("description", device_list[i].description());
           device_info_array.push_back(std::make_pair("", device_info));
         }
-        pt.add_child("deviceArray", device_info_array);
+        pt.add_child("devices", device_info_array);
         boost::property_tree::json_parser::write_json(ss, pt);
 
         return crow::response(ss.str());
