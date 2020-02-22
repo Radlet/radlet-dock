@@ -22,7 +22,7 @@ class database::TemporaryDataInterface {
 public:
   static bool connect();
   static bool disconnect();
-  static bool add(radlet_dock::device::Device device, int expiry_time = 3);
+  static bool add(radlet_dock::device::Device device, int expiry_time = 5);
   radlet_dock::device::Device get(std::string key);
   // radlet_dock::device::Device get(radlet_dock::device::Device device);
   static std::vector<radlet_dock::device::Device> getAll();

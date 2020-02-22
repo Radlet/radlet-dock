@@ -23,8 +23,11 @@ void io::adaptor::tcp_interface::HttpReceiver::listen() {
   CROW_ROUTE(app, "/")([]() { return "Lattice deployed"; });
 
   CROW_ROUTE(app, "/attach")
-      .methods("PUT"_method)(
-          [&](const crow::request &req) { return api_output.c_str(); });
+      .methods("GET"_method)([&](const crow::request &req) {
+        // io::adaptor::tcp_interface::HttpSender::requestAttach(ip, port, mac);
+        std::cout << api_output.c_str() << std::endl;
+        return api_output.c_str();
+      });
 
   CROW_ROUTE(app, "/getavailabledevices")
       .methods("GET"_method)([&](const crow::request &req) {

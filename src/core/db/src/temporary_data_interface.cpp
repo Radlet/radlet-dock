@@ -15,7 +15,6 @@ short_time_data::ShortTimeData<radlet_dock::device::Device>
 bool database::TemporaryDataInterface::connect() {
   data_store =
       new short_time_data::ShortTimeData<radlet_dock::device::Device>();
-  std::cout << "temp db file created" << std::endl;
 }
 
 bool database::TemporaryDataInterface::disconnect() { delete data_store; }
@@ -38,14 +37,9 @@ database::TemporaryDataInterface::get(std::string key) {
   return response.second;
 }
 
-std::vector<radlet_dock::device::Device> database::TemporaryDataInterface::getAll(){
-  vector<radlet_dock::device::Device> device_vector;
-  for(int i = 0; i < 10; i++){
-    auto device = radlet_dock::device::Device();
-    device.set_id(to_string(i));
-    device.set_name("device" + to_string(i));
-    device_vector.push_back(device);
-  }
+std::vector<radlet_dock::device::Device>
+database::TemporaryDataInterface::getAll() {
+  vector<radlet_dock::device::Device> device_vector = data_store->GetAll();
   return device_vector;
 }
 
