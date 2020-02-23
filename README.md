@@ -22,7 +22,7 @@ The Radlet ecosystem was created keeping *speed* and *flexibility* in mind and t
     <br> 
 
 
-## :octocat: Table of Contents
+## Table of Contents :octocat:
 
 - [Structure](#structure)
 - [Getting Started](#getting_started)
@@ -31,7 +31,7 @@ The Radlet ecosystem was created keeping *speed* and *flexibility* in mind and t
 - [Built Using](#built_using)
 - [Authors](#authors)
 
-## :snowflake: 1. Structure <a name = "structure"></a>
+## 1. Structure :snowflake: <a name = "structure"></a>
 
 The internal structure of our dock is according to the block diagram that follows. This is done so that users can tinker with the system easily and swap in and our things according to their needs.
 <img width=800px height=550px src="./docs/prototype.png" alt="Project Plan"></a>
@@ -67,7 +67,7 @@ Run the following command from project root:
   
 ---  
 
-## :fire: 3. Deployment <a name = "deployment"></a>
+## 3. Deployment :fire: <a name = "deployment"></a>
 
 For the purpose of deployment, we can straight away use the docker hub image. The deployment is kept upto date by our team.  
 [![Docker](https://img.shields.io/docker/pulls/radlet/radlet_dock?style=for-the-badge)](https://hub.docker.com/repository/docker/radlet/radlet_dock)  
@@ -78,19 +78,19 @@ To run the deployment build, simply run the following command:
 ```  
 ---
 
-## :closed_book: 4. Usage <a name="usage"></a>
+## 4. Usage :closed_book: <a name="usage"></a>
 
 Once the deployment build has been started in a container the dock is ready to accept IOT devices and user requests for device orchestration. You can use our phone app [Radlet-Composer](https://github.com/Radlet/radlet-composer) and ESP8266 compatible firmware [Radlet-Plankton](https://github.com/Radlet/radlet-plankton) to test out an IOT device in the Radlet ecosystem.
 
 ---
 
-## :nail_care: 5. Built Using <a name = "built_using"></a>
+## 5. Built Using :nail_care: <a name = "built_using"></a>
 
 Check project wiki to know more...
 
 ---
 
-## :hammer: 6. Authors <a name = "authors"></a>
+## 6. Authors :hammer: <a name = "authors"></a>
 
 - [@AakashMallik](https://github.com/AakashMallik)  
 - [@dhirajfx3](https://github.com/dhirajfx3)
