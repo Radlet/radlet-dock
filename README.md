@@ -1,9 +1,7 @@
 <p align="center">
   <a href="" rel="noopener">
- <img width=660px height=400px src="./docs/lattice.png" alt="Project logo"></a>
+ <img src="./docs/twitter_header_photo_2.png" alt="Project logo"></a>
 </p>
-
-<h1 align="center">Radlet Dock</h1>
 
 <div align="center">
 
@@ -14,6 +12,9 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>
+<br/> 
+
+<h1 align="center">Radlet Dock</h1>
 
 ---
 
