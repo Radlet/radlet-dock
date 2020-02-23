@@ -36,7 +36,7 @@ The Radlet ecosystem was created keeping *speed* and *flexibility* in mind and t
 The internal structure of our dock is according to the block diagram that follows. This is done so that users can tinker with the system easily and swap in and our things according to their needs.
 <img width=800px height=550px src="./docs/prototype.png" alt="Project Plan"></a>
 
-## :four_leaf_clover: 2. Getting Started <a name = "getting_started"></a>
+## 2. Getting Started :four_leaf_clover: <a name = "getting_started"></a>
 
 To make things easier for everyone we have made use of docker for build testing and deployment. This takes away most of the problems that you might face during project setup which includes library installation, environment variable setup etc. For the upcoming steps to work, you need the following applications installed on your OS.
 
