@@ -1,12 +1,12 @@
 version: '3.4'
 services:
   radlet_dock:
-    image: humbled/radlet_dock
+    image: radlet/radlet_dock
     network_mode: host
     depends_on:
       - influx
 
   influx:
-    image: humbled/radlet_dock_influx_db
+    image: radlet/radlet_dock_influx_db
     ports: 
       - 8086:8086

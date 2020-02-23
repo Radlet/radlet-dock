@@ -3,127 +3,93 @@
  <img width=660px height=400px src="./docs/lattice.png" alt="Project logo"></a>
 </p>
 
-<h3 align="center">Radlet Hub</h3>
+<h1 align="center">Radlet Dock</h1>
 
 <div align="center">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
-[![GitHub Issues](https://img.shields.io/github/issues-raw/AakashMallik/lattice-hub)](https://github.com/AakashMallik/lattice-hub/issues)
-[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/AakashMallik/lattice-hub)](https://github.com/AakashMallik/lattice-hub/pulls)
+![Docker Image CI](https://github.com/Radlet/radlet-dock/workflows/Docker%20Image%20CI/badge.svg?branch=add_submodule_cpr)
+[![GitHub Issues](https://img.shields.io/github/issues/Radlet/radlet-dock)](https://github.com/Radlet/radlet-dock/issues)
+[![GitHub Pull Requests](https://img.shields.io/github/issues-pr/Radlet/radlet-dock)](https://github.com/Radlet/radlet-dock/pulls)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>
 
 ---
 
-<p align="center"> This project is one of the three components that makes up the Radlet ecosystem. The Radlet Hub is the bridging unit and the controlling box for the edge devices. Computations that are too heavy to be carried out on edge devices are dealt by Radlet Hub. It is also responsible for coordinating the other edge devices and optimizing data acquisition and command delivery.
+The Radlet ecosystem was created keeping *speed* and *flexibility* in mind and thus making edge computing a little more easier for people who wish to tinker. The existing IOT solutions are either proprietary or are too tightly coupled for a regular user to tinker with. We bring the speed of coupled system and the flexibility of a decoupled system with the perfectly balanced IOT ecosystem - Radlet. The ecosystem consists of **three primary components** out of which this repository hold the code for **Radlet-Dock**.
     <br> 
-</p>
 
-## 📝 Table of Contents
 
-- [About](#about)
+## :octocat: Table of Contents
+
+- [Structure](#structure)
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Built Using](#built_using)
-- [TODO](https://github.com/AakashMallik/lattice-hub/wiki/TODO)
 - [Authors](#authors)
 
-## 🧐 About <a name = "about"></a>
+## :snowflake: 1. Structure <a name = "structure"></a>
 
-The existing hubs created by Mozilla is rigid and too complex for people who whish to tinker.  
-
+The internal structure of our dock is according to the block diagram that follows. This is done so that users can tinker with the system easily and swap in and our things according to their needs.
 <img width=800px height=550px src="./docs/prototype.png" alt="Project Plan"></a>
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+## :four_leaf_clover: 2. Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+To make things easier for everyone we have made use of docker for build testing and deployment. This takes away most of the problems that you might face during project setup which includes library installation, environment variable setup etc. For the upcoming steps to work, you need the following applications installed on your OS.
 
-### Prerequisites
+### 2.a Prerequisites
 
-The following libraries need to be installed for compiling the project from source  
-- CMake
-- gcc tool chain
-- Boost lib
-- InfluxDB OSS [Installation Guilde](https://docs.influxdata.com/influxdb/v1.7/introduction/installation/)
+- Docker
+- Docker-Compose
+- Git
 
-### Installing
+### 2.b Build
 
-The easiest way to get started is to build from source, but bear in mind that the OS assumed for the project may not be the same for your local machine and thus the project may fail to compile. In that case, you should resort to docker.  
+The build step makes use of docker that comes packed with all the necessary libraries that we are using. Under the hood, it pulls the **humbled/radlet_dock.env** image from docker hub and attempts to create a new **radlet_dock.dev**  image. The following command is used not only for image creation but also for build testing. If the image creation exits with a non-zero code, then the build was not successful.  
   
-The steps to compile from source are as follows:
+Run the following command from project root:
 ```bash
-git submodule update --init --recursive
+./package.sh -b
 ```
-This will update the required submodules.
+  
+### 2.c Manual test / Run
 
+After a **radlet_dock.dev** image has been created we can manually test the dock by running it. For it, we will open an interactive shell in the docker container and run the dock binary.  
+  
+Run the following command from project root:
 ```bash
-mkdir bin
-cd bin
-cmake ..
-make
-```
-This should create a binary named `server`. Execute the binary with the following command:  
-```bash
-./server
+./package.sh -mt
+./bin/radlet_dock
 ```  
   
-If you plan to use docker, which is a much better platform as it eliminates the problem of cross-compilation, then the following steps need to be followed:
-```bash
-docker build -t temp/radlet_dock .
-```
-If everything runs successfully, then create a container from the image that we just created by running the following commands:
-```bash
-docker run -d --name radlet_dock -p 8888:8080 temp/radlet_dock
-```
+---  
 
-To check the output go to http://localhost:8888  
+## :fire: 3. Deployment <a name = "deployment"></a>
+
+For the purpose of deployment, we can straight away use the docker hub image. The deployment is kept upto date by our team.  
+[![Docker](https://img.shields.io/docker/pulls/radlet/radlet_dock?style=for-the-badge)](https://hub.docker.com/repository/docker/radlet/radlet_dock)  
   
-  
-The latest successful build of the app is available at Docker Hub  
-[![Docker](https://img.shields.io/docker/pulls/humbled/radlet_dock)](https://hub.docker.com/repository/docker/humbled/radlet_dock)
+To run the deployment build, simply run the following command:
+```bash
+./package.sh -d
+```  
+---
 
+## :closed_book: 4. Usage <a name="usage"></a>
+
+Once the deployment build has been started in a container the dock is ready to accept IOT devices and user requests for device orchestration. You can use our phone app [Radlet-Composer](https://github.com/Radlet/radlet-composer) and ESP8266 compatible firmware [Radlet-Plankton](https://github.com/Radlet/radlet-plankton) to test out an IOT device in the Radlet ecosystem.
 
 ---
 
-## 🔧 Running the tests <a name = "tests"></a>
+## :nail_care: 5. Built Using <a name = "built_using"></a>
 
-### Build test
-The dev environment for the app is available at Docker Hub  
-[![Docker](https://img.shields.io/docker/pulls/humbled/radlet_dock.dev)](https://hub.docker.com/repository/docker/humbled/radlet_dock.dev)
-
-This image can be used for build test using the following command:
-```
-docker build -t radlet_dock.test -f ./Docker/dev.Dockerfile .
-```
-If the build is successful the image will be created successfully which can then be run for runtime tests. 
-
-### Break down into end to end tests
-
-Yet to finalize
-
-### And coding style tests
-
-Yet to finalize
+Check project wiki to know more...
 
 ---
 
-## 🎈 Usage <a name="usage"></a>
+## :hammer: 6. Authors <a name = "authors"></a>
 
-Yet to finalize
-
-## 🚀 Deployment <a name = "deployment"></a>
-
-Yet to finalize
-
----
-
-## ⛏️ Built Using <a name = "built_using"></a>
-
-- [Crow](https://github.com/ipkn/crow) - HTTP Adapter Interface
-
-## ✍️ Authors <a name = "authors"></a>
-
-- [@AakashMallik](https://github.com/AakashMallik) - Idea & Initial work
-- [@dhirajfx3](https://github.com/dhirajfx3) - Major contributor
+- [@AakashMallik](https://github.com/AakashMallik)  
+- [@dhirajfx3](https://github.com/dhirajfx3)

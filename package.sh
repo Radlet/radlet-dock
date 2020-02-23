@@ -8,8 +8,11 @@ if [[ $# -eq 0 || $1 == "--help" ]]; then
 elif [[ "$1" == "-b" || $1 == "--build" ]]; then
   docker build -t radlet_dock.dev -f ./Docker/dev.Dockerfile .
 
+elif [[ "$1" == "-ud" || $1 == "--update-deploy" ]]; then
+  docker build -t radlet/radlet_dock -f ./Docker/deploy.Dockerfile .
+  docker push radlet/radlet_dock
+
 elif [[ "$1" == "-d" || $1 == "--deploy" ]]; then
-  docker build -t humbled/radlet_dock -f ./Docker/deploy.Dockerfile .
   mkdir -p hub_sensor_data
   docker-compose -f ./Docker/deploy.docker-compose.yml up
 
@@ -21,7 +24,7 @@ elif [[ "$1" == "-mt" || $1 == "--manual-test" ]]; then
   docker-compose -f ./Docker/dev.docker-compose.yml run radlet_dock
 
 elif [[ "$1" == "-e" || $1 == "--env" ]]; then
-  docker build -t humbled/radlet_dock.env -f ./Docker/env.Dockerfile .
+  docker build -t radlet/radlet_dock.env -f ./Docker/env.Dockerfile .
 
 elif [[ "$1" == "-a" || $1 == "-all" ]]; then
   docker build -t radlet_dock.test -f ./Docker/dev.Dockerfile .
