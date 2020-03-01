@@ -26,8 +26,15 @@ void core::discovery::DiscoveryHandler::handleDiscoveryData(
   device.set_title(title);
   device.set_description(description);
 
-  log_warning("Discovered device data: " + device.DebugString());
+  // log_warning("Discovered device data: " + device.DebugString());
 
   database::TemporaryDataInterface::add(device);
-  // io::adaptor::tcp_interface::HttpSender::requestAttach(ip, port, mac);
+}
+
+void core::discovery::DiscoveryHandler::attachDevice(std::string id) {
+  auto device = radlet_dock::device::Device();
+  device = database::TemporaryDataInterface::get(id);
+  std::string link = device.link();
+  
+  io::adaptor::tcp_interface::HttpSender::requestAttach(id, link);
 }

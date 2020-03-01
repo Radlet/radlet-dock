@@ -43,6 +43,14 @@ public:
   static void handleDiscoveryData(std::string id, std::string link,
                                   std::string type, std::string title,
                                   std::string description);
+
+  /**
+   * @brief This function is called in response to node attachment
+   *        request from the composer
+   *
+   * @param id The Node's unique id
+   */
+  static void attachDevice(std::string id);
 };
 
 #endif
