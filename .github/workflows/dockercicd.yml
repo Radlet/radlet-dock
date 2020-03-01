@@ -1,0 +1,17 @@
+name: Docker CI / CD
+
+on:
+  push:
+    branches: 
+    - master
+jobs:
+  build_test:
+    name: Updating deployment image
+    runs-on: [ubuntu-18.04] 
+    steps:
+      - name: Checkout to master branch
+        uses: actions/checkout@master
+      - name: DockerHub login
+        run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username humbled --password-stdin
+      - name: Pushing to docker hub
+        run: ./package.sh -ud
