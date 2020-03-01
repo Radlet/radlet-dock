@@ -11,6 +11,7 @@
 #include "device.pb.h"
 
 // internal modules
+#include "discovery_handler.h"
 #include "port_map.h"
 #include "temporary_data_interface.h"
 
@@ -22,19 +23,22 @@ io::adaptor::tcp_interface::HttpReceiver::HttpReceiver() {}
 void io::adaptor::tcp_interface::HttpReceiver::listen() {
   CROW_ROUTE(app, "/")([]() { return "Lattice deployed"; });
 
-  CROW_ROUTE(app, "/attach")
-      .methods("GET"_method)([&](const crow::request &req) {
-        // io::adaptor::tcp_interface::HttpSender::requestAttach(ip, port, mac);
-        std::cout << api_output.c_str() << std::endl;
-        return api_output.c_str();
+  CROW_ROUTE(app, "/attachdevice")
+      .methods("POST"_method)([&](const crow::request &req) {
+        auto x = crow::json::load(req.body);
+        if (!x)
+          return crow::response(400);
+
+        std::string id = x["id"].s();
+        core::discovery::DiscoveryHandler::attachDevice(id);
+
+        return crow::response("Attachment request recieved");
       });
 
   CROW_ROUTE(app, "/getavailabledevices")
       .methods("GET"_method)([&](const crow::request &req) {
         std::vector<radlet_dock::device::Device> device_list =
             database::TemporaryDataInterface::getAll();
-
-        std::cout << device_list.size() << std::endl;
         crow::json::wvalue response_data;
 
         boost::property_tree::ptree pt;
@@ -58,19 +62,19 @@ void io::adaptor::tcp_interface::HttpReceiver::listen() {
   app.port(PortMap::TCP_HTTP_PORT).multithreaded().run();
 }
 
-bool io::adaptor::tcp_interface::HttpSender::requestAttach(std::string ip,
-                                                           std::string port,
-                                                           std::string mac) {
+bool io::adaptor::tcp_interface::HttpSender::requestAttach(std::string id,
+                                                           std::string link) {
+
   boost::property_tree::ptree pt;
-  pt.put("ip", "111.111.111.111");
-  pt.put("mac", mac);
-  pt.put("port", PortMap::TCP_HTTP_PORT);
+  std::string dock_link_prefix = "http://192.168.100.2:";
+  pt.put("dock_link",
+         dock_link_prefix + std::to_string(PortMap::TCP_HTTP_PORT));
+  pt.put("id", id);
 
   std::stringstream ss;
   boost::property_tree::json_parser::write_json(ss, pt);
 
-  auto request = cpr::Post(cpr::Url{"http://" + ip + ":" + port + "/attach"},
-                           cpr::Body{ss.str()});
+  auto request = cpr::Post(cpr::Url{link + "/attach"}, cpr::Body{ss.str()});
 
   std::cout << request.header["content-type"]
             << std::endl; // application/json; charset=utf-8

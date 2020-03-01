@@ -25,13 +25,13 @@ namespace tcp_interface {
 
 /**
  * @brief A class for receiving HTTP data
- * 
+ *
  */
 class HttpReceiver;
 
 /**
  * @brief A class for sending HTTP data
- * 
+ *
  */
 class HttpSender;
 
@@ -52,16 +52,15 @@ class io::adaptor::tcp_interface::HttpSender {
 public:
   /**
    * @brief The function sends hub data to the attach API exposed by
-   *        the IOT device. The information exchanged is used for 
+   *        the IOT device. The information exchanged is used for
    *        duplex communication.
-   * 
-   * @param ip IP address of the hub
-   * @param port Port number of the HTTP server
-   * @param mac Mac address of the IOT device for verification
-   * @return true 
-   * @return false 
+   *
+   * @param id ID of the node device
+   * @param link TCP link to the node device
+   * @return true
+   * @return false
    */
-  static bool requestAttach(std::string ip, std::string port, std::string mac);
+  static bool requestAttach(std::string id, std::string link );
 };
 
 #endif

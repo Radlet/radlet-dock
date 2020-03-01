@@ -77,12 +77,12 @@ public:
       expiry_data_map_.erase({iter->second, iter->first});
       iter->second = end_time_secs;
       expiry_data_map_.insert({end_time_secs, iter->first});
-      log_info("Already found data entry for item being added, updating expiry "
-               "time.");
+      // log_info("Already found data entry for item being added, updating expiry "
+      //          "time.");
     } else {
       expiry_data_map_.insert({end_time_secs, d_ptr});
       data_time_map_.insert({d_ptr, end_time_secs});
-      log_info("Creating new data entry.");
+      // log_info("Creating new data entry.");
     }
 
     ExpiryCleanUp();
@@ -115,9 +115,9 @@ public:
     if (auto iter (data_time_map_.find(d_ptr)); iter != data_time_map_.end()) {
       expiry_data_map_.erase({iter->second, iter->first});
       data_time_map_.erase(iter);
-      log_info("Entry erase successful.");
+      // log_info("Entry erase successful.");
     } else {
-      log_warning("Data entry not found for removal.");
+      // log_warning("Data entry not found for removal.");
     }
 
     ExpiryCleanUp();
