@@ -3,6 +3,10 @@ if [[ $# -eq 0 || $1 == "--help" ]]; then
   echo "Usage ./run_build_tests.sh -<option>"
   echo "      <option>: b - build"
   echo "               d - deploy"
+  echo "               ud - update deployment image"
+  echo "               mt - manual testing"
+  echo "               e - create environment image"
+  echo "               d - deploy"
   echo "               t - unittest"
   echo "               a - all"
 elif [[ "$1" == "-b" || $1 == "--build" ]]; then
