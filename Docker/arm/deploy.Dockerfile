@@ -1,5 +1,5 @@
 # our base image
-FROM radlet/radlet_dock.env
+FROM radlet/radlet_dock.env:arm
 
 # # copy files to container
 COPY . /usr/src/app

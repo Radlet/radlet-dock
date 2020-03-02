@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  radlet_dock:
+    image: radlet_dock.dev:arm
+    stdin_open: true
+    tty: true
+    network_mode: host
+    depends_on:
+      - influx
+
+  influx:
+    image: radlet/radlet_dock_influx_db
+    ports: 
+      - 8086:8086
