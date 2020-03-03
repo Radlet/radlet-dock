@@ -1,15 +1,28 @@
-name: Build Test
+name: Build Tests
 
 on:
   pull_request:
     branches: 
     - master
 jobs:
-  build_test:
-    name: Running Build Test
+  build_test_x64:
+    name: Running Build Test for x64
     runs-on: [ubuntu-18.04] 
     steps:
       - name: Checkout to current branch
         uses: actions/checkout@v2
-      - name: Running build test script
+      - name: Running build test script for x64
         run: ./package.sh -b
+    
+  build_test_ARM:
+    name: Running Build Test for ARM
+    runs-on: [ubuntu-18.04] 
+    steps:
+      - name: Checkout to current branch
+        uses: actions/checkout@v2
+      - name: Running build test script for ARM
+        uses: uraimo/run-on-arch-action@v1.0.5
+        with:
+          architecture: armv7
+          distribution: ubuntu18.04
+          run: ./package.sh -b --arm

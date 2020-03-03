@@ -5,8 +5,8 @@ on:
     branches: 
     - master
 jobs:
-  build_test:
-    name: Updating deployment image
+  deploy_x64:
+    name: Updating deployment image for x64
     runs-on: [ubuntu-18.04] 
     steps:
       - name: Checkout to master branch
@@ -15,3 +15,18 @@ jobs:
         run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username humbled --password-stdin
       - name: Pushing to docker hub
         run: ./package.sh -ud
+
+  deploy_ARM:
+    name: Updating deployment image for ARM
+    runs-on: [ubuntu-18.04] 
+    steps:
+      - name: Checkout to master branch
+        uses: actions/checkout@master
+      - name: DockerHub login
+        run: echo '${{ secrets.DOCKERHUB_PASSWORD }}' | docker login --username humbled --password-stdin
+      - name: Pushing to docker hub
+        uses: uraimo/run-on-arch-action@v1.0.5
+        with:
+          architecture: armv7
+          distribution: ubuntu18.04
+          run: ./package.sh -ud --arm
