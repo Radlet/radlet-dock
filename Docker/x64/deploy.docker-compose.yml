@@ -1,9 +1,7 @@
 version: '3.4'
 services:
   radlet_dock:
-    image: radlet_dock.dev
-    stdin_open: true
-    tty: true
+    image: radlet/radlet_dock:x64
     network_mode: host
     depends_on:
       - influx

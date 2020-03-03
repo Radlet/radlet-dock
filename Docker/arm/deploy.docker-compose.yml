@@ -1,7 +1,7 @@
 version: '3.4'
 services:
   radlet_dock:
-    image: radlet/radlet_dock
+    image: radlet/radlet_dock:arm
     network_mode: host
     depends_on:
       - influx
