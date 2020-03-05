@@ -50,7 +50,37 @@ public:
    *
    * @param id The Node's unique id
    */
-  static void attachDevice(std::string id);
+  static void requestAttachDevice(std::string id);
+
+  /**
+   * @brief This function is called in response to node detachment
+   *        request from the composer
+   *
+   * @param id The Node's unique id
+   */
+  static void requestDetachDevice(std::string id);
+
+  /**
+   * @brief This function is called when the node agrees
+   *        to an attach request
+   *
+   * @param id Unique ID of the IOT device (mac)
+   * @param link Link to the device for TCP communication
+   * @param type Type of IOT device
+   * @param title Title of the device
+   * @param description Textual description of the IOT device
+   */
+  static void handleAttachDeviceResponse(std::string id, std::string link,
+                                         std::string type, std::string title,
+                                         std::string description);
+
+  /**
+   * @brief This function is called when the node agrees
+   *        to an detach request
+   *
+   * @param id Unique ID of the IOT device (mac)
+   */
+  static void handleDetachDeviceResponse(std::string id);
 };
 
 #endif

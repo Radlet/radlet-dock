@@ -13,16 +13,3 @@ jobs:
         uses: actions/checkout@v2
       - name: Running build test script for x64
         run: ./package.sh -b
-    
-  build_test_ARM:
-    name: Running Build Test for ARM
-    runs-on: [ubuntu-18.04] 
-    steps:
-      - name: Checkout to current branch
-        uses: actions/checkout@v2
-      - name: Running build test script for ARM
-        uses: uraimo/run-on-arch-action@v1.0.5
-        with:
-          architecture: armv7
-          distribution: ubuntu18.04
-          run: ./package.sh -b --arm

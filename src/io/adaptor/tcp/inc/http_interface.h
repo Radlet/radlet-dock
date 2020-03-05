@@ -61,6 +61,18 @@ public:
    * @return false
    */
   static bool requestAttach(std::string id, std::string link );
+
+  /**
+   * @brief The function sends a request to the detach API exposed by
+   *        the IOT device. On successful detachment, the device is removed
+   *        from persistant DB.
+   *
+   * @param id ID of the node device
+   * @param link TCP link to the node device
+   * @return true
+   * @return false
+   */
+  static bool requestDetach(std::string id, std::string link );
 };
 
 #endif

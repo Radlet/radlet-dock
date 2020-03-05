@@ -14,9 +14,13 @@
 
 // stl
 #include <string>
+#include <vector>
 
 // 3rd party lib
 #include "sqlite3pp.h"
+
+// protos
+#include "device.pb.h"
 
 namespace database {
 /**
@@ -54,15 +58,24 @@ public:
    * @brief Used to add an entry of the device data as part of
    *        registration process
    *
-   * @param mac Mac address of the IOT device (used as unique id)
-   * @param ip Ip address of the TCP server running on the IOT device
-   * @param port Port of the TCP server running on the IOT device
+   * @param id Unique ID of the IOT device (mac)
+   * @param link Link to the device for TCP communication
+   * @param type Type of IOT device
+   * @param title Title of the device
+   * @param description Textual description of the IOT device
    * @return true
    * @return false
    */
-  static bool addDevice(std::string mac, std::string ip, std::string port);
+  static bool add(std::string id, std::string link, std::string type,
+                  std::string title, std::string description);
+
+  static std::vector<radlet_dock::device::Device> getAll();
+
+  static radlet_dock::device::Device get(std::string);
+
   // void updateDevice();
-  // void removeDevice();
+
+  static bool remove(std::string id);
 };
 
 // class database::UserDbInterface {
