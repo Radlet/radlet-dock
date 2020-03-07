@@ -64,7 +64,7 @@ void io::adaptor::udp_interface::UdpReceiver::handle_receive(
     boost::property_tree::ptree pt;
     boost::property_tree::read_json(ss, pt);
 
-    core::discovery::DiscoveryHandler::handleDiscoveryData(
+    core::discovery::DiscoveryHandler::onRecieveDiscoveryBroadcast(
         pt.get<std::string>("id"), 
         pt.get<std::string>("link"),
         pt.get<std::string>("type"),

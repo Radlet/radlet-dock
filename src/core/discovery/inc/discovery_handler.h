@@ -40,7 +40,7 @@ public:
    * @param title Title of the device
    * @param description Textual description of the IOT device
    */
-  static void handleDiscoveryData(std::string id, std::string link,
+  static void onRecieveDiscoveryBroadcast(std::string id, std::string link,
                                   std::string type, std::string title,
                                   std::string description);
 
@@ -50,7 +50,7 @@ public:
    *
    * @param id The Node's unique id
    */
-  static void requestAttachDevice(std::string id);
+  static void onRequestNodeAttach(std::string id);
 
   /**
    * @brief This function is called in response to node detachment
@@ -58,7 +58,7 @@ public:
    *
    * @param id The Node's unique id
    */
-  static void requestDetachDevice(std::string id);
+  static void onRequestNodeDetach(std::string id);
 
   /**
    * @brief This function is called when the node agrees
@@ -70,7 +70,7 @@ public:
    * @param title Title of the device
    * @param description Textual description of the IOT device
    */
-  static void handleAttachDeviceResponse(std::string id, std::string link,
+  static void onNodeAttachSuccessful(std::string id, std::string link,
                                          std::string type, std::string title,
                                          std::string description);
 
@@ -80,7 +80,7 @@ public:
    *
    * @param id Unique ID of the IOT device (mac)
    */
-  static void handleDetachDeviceResponse(std::string id);
+  static void onNodeDetachSuccessful(std::string id);
 };
 
 #endif
