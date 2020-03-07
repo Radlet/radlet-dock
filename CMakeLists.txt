@@ -19,9 +19,9 @@ FATAL: In-source builds are not allowed.
 endif()
 
 # find libraries
-# BOOST components
 find_package( Boost 1.52 COMPONENTS system thread regex REQUIRED )
 find_package( Protobuf REQUIRED )
+find_package( rxcpp CONFIG REQUIRED)
 
 # 3rd party lib sub_directories
 add_subdirectory(
