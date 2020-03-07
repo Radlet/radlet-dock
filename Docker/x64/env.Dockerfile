@@ -8,6 +8,7 @@ WORKDIR /usr/src/scripts
 RUN chmod 777 *
 RUN ./base.sh
 RUN ./protobuf.sh
+RUN ./rxcpp.sh
 
 # clean up
 WORKDIR /

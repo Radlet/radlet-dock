@@ -7,4 +7,6 @@ make
 make check
 make install
 ldconfig
+
+cd ..
 rm -rf protobuf

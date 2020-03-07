@@ -41,5 +41,5 @@ add_executable(${PROJECT_NAME} ${SRC_PATHS} ./main.cpp)
 # linking executable with required libraries
 target_link_libraries(
 	${PROJECT_NAME} 
-  LINK_PUBLIC protos ${Boost_LIBRARIES} cpr sqlite3
+  LINK_PUBLIC protos rxcpp ${Boost_LIBRARIES} cpr sqlite3
 )
