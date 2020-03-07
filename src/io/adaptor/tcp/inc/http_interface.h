@@ -60,7 +60,7 @@ public:
    * @return true
    * @return false
    */
-  static bool requestAttach(std::string id, std::string link );
+  static bool forwardNodeAttach(std::string id, std::string link );
 
   /**
    * @brief The function sends a request to the detach API exposed by
@@ -72,7 +72,7 @@ public:
    * @return true
    * @return false
    */
-  static bool requestDetach(std::string id, std::string link );
+  static bool forwardNodeDetach(std::string id, std::string link );
 };
 
 #endif

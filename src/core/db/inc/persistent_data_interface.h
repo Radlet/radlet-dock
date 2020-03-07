@@ -69,12 +69,31 @@ public:
   static bool add(std::string id, std::string link, std::string type,
                   std::string title, std::string description);
 
+  /**
+   * @brief Used to get a the list of nodes registered to the doc
+   *
+   * @return std::vector<radlet_dock::device::Device>
+   */
   static std::vector<radlet_dock::device::Device> getAll();
 
-  static radlet_dock::device::Device get(std::string);
+  /**
+   * @brief Used to get back a Device proto that matches the id
+   *
+   * @param id Unique ID of the Node
+   * @return radlet_dock::device::Device
+   */
+  static radlet_dock::device::Device get(std::string id);
 
   // void updateDevice();
 
+  /**
+   * @brief Used to remove an entry of the device data as part of
+   *        registration process
+   *
+   * @param id Unique ID of the IOT device (mac)
+   * @return true
+   * @return false
+   */
   static bool remove(std::string id);
 };
 

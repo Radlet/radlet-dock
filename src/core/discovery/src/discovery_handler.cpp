@@ -16,7 +16,7 @@
 
 core::discovery::DiscoveryHandler::DiscoveryHandler() {}
 
-void core::discovery::DiscoveryHandler::handleDiscoveryData(
+void core::discovery::DiscoveryHandler::onRecieveDiscoveryBroadcast(
     std::string id, std::string link, std::string type, std::string title,
     std::string description) {
 
@@ -30,30 +30,30 @@ void core::discovery::DiscoveryHandler::handleDiscoveryData(
   database::TemporaryDataInterface::add(device);
 }
 
-void core::discovery::DiscoveryHandler::requestAttachDevice(std::string id) {
+void core::discovery::DiscoveryHandler::onRequestNodeAttach(std::string id) {
   auto device = radlet_dock::device::Device();
   device = database::TemporaryDataInterface::get(id);
   std::string link = device.link();
 
-  io::adaptor::tcp_interface::HttpSender::requestAttach(id, link);
+  io::adaptor::tcp_interface::HttpSender::forwardNodeAttach(id, link);
 }
 
-void core::discovery::DiscoveryHandler::requestDetachDevice(std::string id) {
+void core::discovery::DiscoveryHandler::onRequestNodeDetach(std::string id) {
   auto device = radlet_dock::device::Device();
   device = database::DeviceDbInterface::get(id);
   std::string link = device.link();
 
-  io::adaptor::tcp_interface::HttpSender::requestDetach(id, link);
+  io::adaptor::tcp_interface::HttpSender::forwardNodeDetach(id, link);
 }
 
-void core::discovery::DiscoveryHandler::handleAttachDeviceResponse(
+void core::discovery::DiscoveryHandler::onNodeAttachSuccessful(
     std::string id, std::string link, std::string type, std::string title,
     std::string description) {
 
   database::DeviceDbInterface::add(id, link, type, title, description);
 }
 
-void core::discovery::DiscoveryHandler::handleDetachDeviceResponse(
+void core::discovery::DiscoveryHandler::onNodeDetachSuccessful(
     std::string id) {
 
   database::DeviceDbInterface::remove(id);

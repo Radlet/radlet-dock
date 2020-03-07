@@ -56,7 +56,7 @@ std::vector<radlet_dock::device::Device> database::DeviceDbInterface::getAll() {
   return device_vector;
 }
 
-radlet_dock::device::Device database::DeviceDbInterface::get(std::string id) {  
+radlet_dock::device::Device database::DeviceDbInterface::get(std::string id) {
   std::string query =
       "SELECT id, link, type, title, description FROM devices WHERE id = \"";
   query += id;

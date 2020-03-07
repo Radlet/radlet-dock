@@ -24,31 +24,31 @@ io::adaptor::tcp_interface::HttpReceiver::HttpReceiver() {}
 void io::adaptor::tcp_interface::HttpReceiver::listen() {
   CROW_ROUTE(app, "/")([]() { return "Lattice deployed"; });
 
-  CROW_ROUTE(app, "/requestattachdevice")
+  CROW_ROUTE(app, "/requestnodeattach")
       .methods("POST"_method)([&](const crow::request &req) {
         auto x = crow::json::load(req.body);
         if (!x)
           return crow::response(400);
 
         std::string id = x["id"].s();
-        core::discovery::DiscoveryHandler::requestAttachDevice(id);
+        core::discovery::DiscoveryHandler::onRequestNodeAttach(id);
 
         return crow::response("Attachment request recieved");
       });
 
-  CROW_ROUTE(app, "/requestdetachdevice")
+  CROW_ROUTE(app, "/requestnodedetach")
       .methods("POST"_method)([&](const crow::request &req) {
         auto x = crow::json::load(req.body);
         if (!x)
           return crow::response(400);
 
         std::string id = x["id"].s();
-        core::discovery::DiscoveryHandler::requestDetachDevice(id);
+        core::discovery::DiscoveryHandler::onRequestNodeDetach(id);
 
         return crow::response("Detachment request recieved");
       });
 
-  CROW_ROUTE(app, "/getavailabledevices")
+  CROW_ROUTE(app, "/getnodelist")
       .methods("GET"_method)([&](const crow::request &req) {
         crow::json::wvalue response_data;
 
@@ -89,7 +89,7 @@ void io::adaptor::tcp_interface::HttpReceiver::listen() {
   app.port(PortMap::TCP_HTTP_PORT).multithreaded().run();
 }
 
-bool io::adaptor::tcp_interface::HttpSender::requestAttach(std::string id,
+bool io::adaptor::tcp_interface::HttpSender::forwardNodeAttach(std::string id,
                                                            std::string link) {
 
   boost::property_tree::ptree pt_in;
@@ -114,13 +114,13 @@ bool io::adaptor::tcp_interface::HttpSender::requestAttach(std::string id,
 
   std::cout << request.text << std::endl;
 
-  core::discovery::DiscoveryHandler::handleAttachDeviceResponse(
+  core::discovery::DiscoveryHandler::onNodeAttachSuccessful(
       pt_out.get<std::string>("id"), pt_out.get<std::string>("link"),
       pt_out.get<std::string>("type"), pt_out.get<std::string>("title"),
       pt_out.get<std::string>("description"));
 }
 
-bool io::adaptor::tcp_interface::HttpSender::requestDetach(std::string id,
+bool io::adaptor::tcp_interface::HttpSender::forwardNodeDetach(std::string id,
                                                            std::string link) {
   boost::property_tree::ptree pt;
   pt.put("id", id);
@@ -136,5 +136,5 @@ bool io::adaptor::tcp_interface::HttpSender::requestDetach(std::string id,
 
   std::cout << request.text << std::endl;
 
-  core::discovery::DiscoveryHandler::handleDetachDeviceResponse(id);
+  core::discovery::DiscoveryHandler::onNodeDetachSuccessful(id);
 }
