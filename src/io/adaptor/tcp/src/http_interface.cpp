@@ -11,9 +11,9 @@
 #include "device.pb.h"
 
 // internal modules
+#include "config.h"
 #include "discovery_handler.h"
 #include "persistent_data_interface.h"
-#include "port_map.h"
 #include "temporary_data_interface.h"
 
 // implementation file
@@ -86,7 +86,7 @@ void io::adaptor::tcp_interface::HttpReceiver::listen() {
         return crow::response(ss.str());
       });
 
-  app.port(PortMap::TCP_HTTP_PORT).multithreaded().run();
+  app.port(config::PortMap::TCP_HTTP_PORT).multithreaded().run();
 }
 
 bool io::adaptor::tcp_interface::HttpSender::forwardNodeAttach(std::string id,
@@ -95,7 +95,7 @@ bool io::adaptor::tcp_interface::HttpSender::forwardNodeAttach(std::string id,
   boost::property_tree::ptree pt_in;
   std::string dock_link_prefix = "http://192.168.100.2:";
   pt_in.put("dock_link",
-            dock_link_prefix + std::to_string(PortMap::TCP_HTTP_PORT));
+            dock_link_prefix + std::to_string(config::PortMap::TCP_HTTP_PORT));
   pt_in.put("id", id);
 
   std::stringstream ss_in;

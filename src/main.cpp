@@ -18,13 +18,13 @@
 #include "user.pb.h"
 
 // internal module
+#include "async.h"
+#include "config.h"
+#include "http_interface.h"
 #include "log.h"
-#include "port_map.h"
-#include "ip_map.h"
 #include "persistent_data_interface.h"
 #include "sensor_data_interface.h"
 #include "temporary_data_interface.h"
-#include "http_interface.h"
 #include "udp_interface.h"
 
 using namespace std;
@@ -85,8 +85,9 @@ void StartUdpServer() {
     boost::shared_ptr<boost::asio::io_service> io_service(
         new boost::asio::io_service);
     io::adaptor::udp_interface::UdpReceiver udpReceiver(
-        io_service, PortMap::UDP_MULTICAST_PORT, IpMap::UDP_LISTENER,
-        IpMap::UDP_MULTICAST);
+        *io_service,
+        config::PortMap::UDP_MULTICAST_PORT, config::IpMap::UDP_LISTENER,
+        config::IpMap::UDP_MULTICAST);
     io_service->run();
   } catch (std::exception &e) {
     std::cerr << e.what() << std::endl;
@@ -109,7 +110,7 @@ int main() {
   boost::thread_group worker_threads;
   worker_threads.create_thread(StartUdpServer);
   worker_threads.create_thread(StartTcpServer);
-  
+
   log_success("Servers started in separate threads\n");
   worker_threads.join_all();
 

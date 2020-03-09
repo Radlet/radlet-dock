@@ -1,10 +1,9 @@
 # setting source variable
 set(
 	SOURCE_DIR
+	config
+	utils/async_manager
 	utils/short_time_data
-	utils/thing
-	utils/port_map
-	utils/ip_map
 	utils/log
 	core/db
 	core/discovery
