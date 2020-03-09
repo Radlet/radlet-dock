@@ -18,6 +18,7 @@
 #include <boost/property_tree/ptree.hpp>
 
 // internal modules
+#include "async.h"
 #include "discovery_handler.h"
 
 // implementation file
@@ -26,10 +27,9 @@
 #define UDP_PORT 13000
 
 io::adaptor::udp_interface::UdpReceiver::UdpReceiver(
-    boost::shared_ptr<boost::asio::io_service> io_service,
-    unsigned short multicast_port, std::string listener_ip,
-    std::string multicast_ip)
-    : socket_(*io_service) {
+    boost::asio::io_service &io_service, unsigned short multicast_port,
+    std::string listener_ip, std::string multicast_ip)
+    : socket_(io_service) {
   // Create the socket so that multiple may be bound to the same address.
   udp::endpoint listen_endpoint(address::from_string(listener_ip),
                                 multicast_port);
@@ -65,12 +65,9 @@ void io::adaptor::udp_interface::UdpReceiver::handle_receive(
     boost::property_tree::read_json(ss, pt);
 
     core::discovery::DiscoveryHandler::onRecieveDiscoveryBroadcast(
-        pt.get<std::string>("id"), 
-        pt.get<std::string>("link"),
-        pt.get<std::string>("type"),
-        pt.get<std::string>("title"),
-        pt.get<std::string>("description")  
-        );
+        pt.get<std::string>("id"), pt.get<std::string>("link"),
+        pt.get<std::string>("type"), pt.get<std::string>("title"),
+        pt.get<std::string>("description"));
 
     start_receive();
   }

@@ -17,7 +17,6 @@
 
 // 3rd party libs
 #include <boost/array.hpp>
-#include <boost/asio.hpp>
 #include <boost/shared_ptr.hpp>
 
 namespace io {
@@ -60,13 +59,13 @@ class io::adaptor::udp_interface::UdpReceiver {
 public:
   /**
    * @brief Construct a new Udp Receiver object
-   * 
-   * @param io_service Boost io_service shared pointer
+   *
+   * @param io_service io_service object
    * @param multicast_port UDP port that the host exposes
    * @param listener_ip IP address to which the listener will be bound to
    * @param multicast_ip The class D Ip that marks the multicast group
    */
-  UdpReceiver(boost::shared_ptr<boost::asio::io_service> io_service,
+  UdpReceiver(boost::asio::io_service &io_service,
               unsigned short multicast_port, std::string listener_ip,
               std::string multicast_ip);
 };
