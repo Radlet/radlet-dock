@@ -61,6 +61,7 @@ void io::adaptor::udp_interface::UdpReceiver::handle_receive(
 
     std::stringstream ss;
     ss << raw_message;
+    std::cout << (raw_message);
     boost::property_tree::ptree pt;
     boost::property_tree::read_json(ss, pt);
 

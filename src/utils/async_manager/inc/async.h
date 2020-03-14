@@ -60,6 +60,16 @@ public:
    * @return boost::asio::io_service&
    */
   boost::asio::io_service &getIOServiceInstance();
+
+  /**
+   * @brief execute the method.
+   *
+   * @args func- function object to execute.
+   */
+   template<typename T>
+   void execute(T func) {
+     io_service.post(func);
+   }
 };
 
 #endif
