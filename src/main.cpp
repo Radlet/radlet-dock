@@ -101,20 +101,19 @@ void StartTcpServer() {
 }
 
 int main() {
+  auto ptr = Async::getInstance();
+
   log_info("Attempting to start DB service\n");
   database::DeviceDbInterface::connect("device.db");
   database::SensorDataInterface::AddDatabase("sensor_db");
   database::TemporaryDataInterface::connect();
   log_success("DB service started successfully\n");
 
-  boost::thread_group worker_threads;
-  worker_threads.create_thread(StartUdpServer);
-  worker_threads.create_thread(StartTcpServer);
+  ptr->execute(boost::bind(StartTcpServer));
+  ptr->execute(boost::bind(StartUdpServer));
+  log_success("Servers started in separate threads (may be)\n");
 
-  log_success("Servers started in separate threads\n");
-  worker_threads.join_all();
-
-  database::DeviceDbInterface::disconnect();
-  database::TemporaryDataInterface::disconnect();
+  //database::DeviceDbInterface::disconnect();
+  //database::TemporaryDataInterface::disconnect();
   return 0;
 }
